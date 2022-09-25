@@ -21,3 +21,4 @@ As mentioned above, managing finance can be difficult, especially when you're ne
 - As a user, I want to be able to **categorize** the money spent, associated with the entry mentioned in the 1st bullet point, in the budget list.
 - As a user, I want to be able to **write a brief description** on the money spent, associated with the entry mentioned in the 1st bullet point, in the list.
 - As a user, I want to be able to **compare two different budget lists** in terms of **total money spent**, **money spent on which categories** and **generate a brief report** highlighting the differences between the two budget lists.
+- As a user, I want to be able to see an overall **summary** of my budget list, including the total amount of money spent and how much on each category.
