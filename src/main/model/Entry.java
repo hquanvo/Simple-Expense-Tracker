@@ -1,27 +1,23 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 // Entry is the atomic element of BudgetList
 public class Entry {
     private double amount; //amount of money spent
     private Category category; //categories
-    private Date date; //
+    private LocalDate date; //
     private String description;
 
     //EFFECTS: Construct an Entry with 0 amount spent, default type and date, empty description
     public Entry() {
         amount = 0;
         category = Category.DEFAULT;
-        try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        date = LocalDate.of(2000, 1, 1);
         description = "";
     }
+
 
     //getters
     public double getAmount() {
@@ -32,8 +28,8 @@ public class Entry {
         return category;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return date.format(DateTimeFormatter.ISO_DATE);
     }
 
     public String getDescription() {
@@ -67,10 +63,29 @@ public class Entry {
         }
     }
 
+    //REQUIRES: Date must be in yyyy/mm/dd format
+    //EFFECTS: Change a date by parsing a string
     public void setDate(String date) {
-        this.date.parse(date);
-        System.out.println("The date has been set to " + date);
+        this.date = LocalDate.parse(date);
     }
+
+    //REQUIRES: Year month day must for a valid date
+    //EFFECTS: Change a date by entering year, month, day
+    public void setDate(int year, int month, int day) {
+        this.date = LocalDate.of(year, month, day);
+    }
+
+    //REQUIRES: Month must be in [1, 12]
+    //EFFECTS: Change a date by entering year and month
+    public void setDate(int year, int month) {
+        this.date = LocalDate.of(year, month, date.getDayOfMonth());
+    }
+
+    //EFFECTS: Change a date by entering year only
+    public void setDate(int year) {
+        this.date = LocalDate.of(year, date.getMonth(), date.getDayOfMonth());
+    }
+
 
     public void setDescription(String description) {
         this.description = description;
