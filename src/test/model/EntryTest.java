@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import static model.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EntryTest {
@@ -11,15 +12,15 @@ public class EntryTest {
     private Entry entry2;
     @BeforeEach
     public void setup() {
-        entry1 = new Entry();
-        entry2 = new Entry();
+        entry1 = new Entry(12.0, "2000-01-01", FOOD,"");
+        entry2 = new Entry(24.0, "2000-01-01", SUPPLIES, "");
 
     }
 
     @Test
     public void testConstructor() {
-        assertEquals(0.0, entry1.getAmount());
-        assertEquals(Category.DEFAULT, entry1.getCategory());
+        assertEquals(12.0, entry1.getAmount());
+        assertEquals("Food", entry1.getCategory());
         assertEquals("2000-01-01", entry1.getDate());
         assertEquals("", entry1.getDescription());
     }
@@ -36,13 +37,13 @@ public class EntryTest {
     public void testSetCategory() {
         entry1.setCategory("Food");
         entry2.setCategory("");
-        assertEquals(Category.FOOD, entry1.getCategory());
-        assertEquals(Category.DEFAULT, entry2.getCategory());
+        assertEquals("Food", entry1.getCategory());
+        assertEquals("Supplies", entry2.getCategory());
 
         entry1.setCategory("");
-        entry2.setCategory("Supplies");
-        assertEquals(Category.FOOD, entry1.getCategory());
-        assertEquals(Category.SUPPLIES, entry2.getCategory());
+        entry2.setCategory("Rent");
+        assertEquals("Food", entry1.getCategory());
+        assertEquals("Rent", entry2.getCategory());
     }
 
 

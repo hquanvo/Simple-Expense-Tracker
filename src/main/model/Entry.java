@@ -10,12 +10,13 @@ public class Entry {
     private LocalDate date; //
     private String description;
 
-    //EFFECTS: Construct an Entry with 0 amount spent, default type and date, empty description
-    public Entry() {
-        amount = 0;
-        category = Category.DEFAULT;
-        date = LocalDate.of(2000, 1, 1);
-        description = "";
+    //REQUIRES: amt > 0
+    //EFFECTS: Construct an Entry with amount spent, default type, a date, and an empty description
+    public Entry(double amt, String date, Category category, String description) {
+        this.amount = amt;
+        this.category = category;
+        this.date = LocalDate.parse(date);
+        this.description = description;
     }
 
 
@@ -24,8 +25,8 @@ public class Entry {
         return amount;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategory() {
+        return category.toString().charAt(0) + category.toString().substring(1).toLowerCase();
     }
 
     public String getDate() {
@@ -70,17 +71,20 @@ public class Entry {
     }
 
     //REQUIRES: Year month day must for a valid date
+    //MODIFIES: this
     //EFFECTS: Change a date by entering year, month, day
     public void setDate(int year, int month, int day) {
         this.date = LocalDate.of(year, month, day);
     }
 
     //REQUIRES: Month must be in [1, 12]
+    //MODIFIES: this
     //EFFECTS: Change a date by entering year and month
     public void setDate(int year, int month) {
         this.date = LocalDate.of(year, month, date.getDayOfMonth());
     }
 
+    //MODIFIES: this
     //EFFECTS: Change a date by entering year only
     public void setDate(int year) {
         this.date = LocalDate.of(year, date.getMonth(), date.getDayOfMonth());
