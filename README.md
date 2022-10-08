@@ -1,4 +1,4 @@
-# Simple Budget Manager (working title)
+# Simple Expense Tracker
 
 ### *For managing budget as a student*
 

@@ -3,15 +3,16 @@ package model;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-// Entry is the atomic element of BudgetList
+// An Entry contains information about the amount of money spent in an expenditure, the category the expenditure belongs
+// to, the date of the expenditure, and a description about the expenditure.
 public class Entry {
     private double amount; //amount of money spent
     private Category category; //categories
     private LocalDate date; //
     private String description;
 
-    //REQUIRES: amt > 0
-    //EFFECTS: Construct an Entry with amount spent, default type, a date, and an empty description
+    //REQUIRES: amt > 0, date in yyyy/mm/dd format
+    //EFFECTS: Construct an Entry with amount spent, a date, a category and a description
     public Entry(double amt, String date, Category category, String description) {
         this.amount = amt;
         this.category = category;
@@ -36,6 +37,8 @@ public class Entry {
     public String getDescription() {
         return description;
     }
+
+
 
     //setters
     public void setAmount(double amount) {
