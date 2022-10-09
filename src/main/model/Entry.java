@@ -3,8 +3,8 @@ package model;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-// An Entry contains information about the amount of money spent in an expenditure, the category the expenditure belongs
-// to, the date of the expenditure, and a description about the expenditure.
+// An Entry contains information about the amount of money spent in an expenditure (in dollars), the category the
+// expenditure belongs to, the date of the expenditure, and a description about the expenditure.
 public class Entry {
     private double amount; //amount of money spent
     private Category category; //categories

@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-//The first thing the user will access. Contains multiple budget lists.
+//The first thing the user will access. Contains multiple budget lists and represent the Expense Tracker App in general.
 public class Tracker {
     private ArrayList<BudgetList> tracker;
 
@@ -19,11 +19,12 @@ public class Tracker {
     }
 
     //MODIFIES: this
-    //EFFECTS: Remove entry from list. If there are multiple, remove the first matching entry.
+    //EFFECTS: Remove a budget list from tracker.
     public void remove(BudgetList budgetList) {
         tracker.remove(budgetList);
     }
 
+    //REQUIRES: tracker size >= 2
     //EFFECTS: Return an array list that shows the amount difference between list1 and list2, in order of RENT, FOOD
     //         SUPPLIES, BILLS, OTHERS and TOTAL
     public ArrayList<Double> compareList(BudgetList list1, BudgetList list2) {
@@ -37,4 +38,17 @@ public class Tracker {
         return report;
     }
 
+
+    //getters
+
+    //EFFECTS: return the size of the tracker
+    public int getTrackerSize() {
+        return tracker.size();
+    }
+
+    //REQUIRES: i > 0
+    //EFFECTS: return the numbered budget list in the tracker
+    public BudgetList getTrackerBudgetList(int i) {
+        return tracker.get(i - 1);
+    }
 }

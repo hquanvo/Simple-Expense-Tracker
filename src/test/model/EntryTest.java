@@ -44,6 +44,14 @@ public class EntryTest {
         entry2.setCategory("Rent");
         assertEquals(FOOD, entry1.getCategory());
         assertEquals(RENT, entry2.getCategory());
+
+        entry1.setCategory("Others");
+        entry2.setCategory("Bills");
+        assertEquals(OTHERS, entry1.getCategory());
+        assertEquals(BILLS, entry2.getCategory());
+
+        entry2.setCategory("Supplies");
+        assertEquals(SUPPLIES, entry2.getCategory());
     }
 
 

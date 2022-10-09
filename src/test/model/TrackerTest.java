@@ -53,13 +53,16 @@ public class TrackerTest {
         testList2.add(entry8);
         testList2.add(entry9);
         testList2.add(entry10);
+
+        tracker.add(testList1);
+        tracker.add(testList2);
     }
 
     @Test
     void testCompareList() {
         ArrayList<Double> result = tracker.compareList(testList1, testList2);
         assertEquals(100, result.get(0));
-        assertEquals(45.99, result.get(1));
+        assertTrue(result.get(1).equals(29.13+56.86-40));
         assertEquals(-20, result.get(2));
         assertEquals(200, result.get(3));
         assertEquals(-1468.788, result.get(4));
@@ -67,7 +70,7 @@ public class TrackerTest {
 
         result = tracker.compareList(testList2, testList1);
         assertEquals(-100, result.get(0));
-        assertEquals(-45.99, result.get(1));
+        assertTrue(result.get(1).equals(40-(29.13+56.86)));
         assertEquals(20, result.get(2));
         assertEquals(-200, result.get(3));
         assertEquals(1468.788, result.get(4));
@@ -82,6 +85,24 @@ public class TrackerTest {
         assertEquals(-100, result.get(3));
         assertEquals(-1468.788, result.get(4));
         assertEquals(testList2.sumAll()- testList1.sumAll(), result.get(5));
+    }
+
+    @Test
+    void testAddAndRemove() {
+        assertEquals(2, tracker.getTrackerSize());
+        tracker.remove(testList1);
+        assertEquals(1, tracker.getTrackerSize());
+        assertEquals(testList2,tracker.getTrackerBudgetList(1));
+        tracker.remove(testList2);
+        tracker.remove(testList1);
+        assertEquals(0, tracker.getTrackerSize());
+        tracker.add(testList1);
+        tracker.add(testList1);
+        tracker.add(testList2);
+        tracker.add(testList1);
+        tracker.add(testList1);
+        assertEquals(5, tracker.getTrackerSize());
+        assertEquals(testList2,tracker.getTrackerBudgetList(3));
     }
 
 }
