@@ -26,8 +26,8 @@ public class Entry {
         return amount;
     }
 
-    public String getCategory() {
-        return category.toString().charAt(0) + category.toString().substring(1).toLowerCase();
+    public Category getCategory() {
+        return category;
     }
 
     public String getDate() {
@@ -63,7 +63,7 @@ public class Entry {
                 this.category = Category.OTHERS;
                 break;
             default:
-                System.out.println("That category does not exist.");
+                break;
         }
     }
 

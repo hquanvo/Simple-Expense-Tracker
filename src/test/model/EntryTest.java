@@ -20,7 +20,7 @@ public class EntryTest {
     @Test
     public void testConstructor() {
         assertEquals(12.0, entry1.getAmount());
-        assertEquals("Food", entry1.getCategory());
+        assertEquals(FOOD, entry1.getCategory());
         assertEquals("2000-01-01", entry1.getDate());
         assertEquals("", entry1.getDescription());
     }
@@ -37,13 +37,13 @@ public class EntryTest {
     public void testSetCategory() {
         entry1.setCategory("Food");
         entry2.setCategory("");
-        assertEquals("Food", entry1.getCategory());
-        assertEquals("Supplies", entry2.getCategory());
+        assertEquals(FOOD, entry1.getCategory());
+        assertEquals(SUPPLIES, entry2.getCategory());
 
         entry1.setCategory("");
         entry2.setCategory("Rent");
-        assertEquals("Food", entry1.getCategory());
-        assertEquals("Rent", entry2.getCategory());
+        assertEquals(FOOD, entry1.getCategory());
+        assertEquals(RENT, entry2.getCategory());
     }
 
 
