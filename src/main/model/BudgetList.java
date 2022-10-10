@@ -77,7 +77,7 @@ public class BudgetList extends Tracker {
     }
 
     //REQUIRES: entryNumber > 0
-    public Entry getBudgetListEntry(int entryNumber) {
+    public Entry getEntryInBudgetList(int entryNumber) {
         return budgetList.get(entryNumber - 1);
     }
 }

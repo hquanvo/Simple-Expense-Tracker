@@ -119,6 +119,6 @@ public class BudgetListTest {
     }
 
     private void testEntryPos(Entry entry, BudgetList budgetList, int entryNumber) {
-        assertEquals(entry, budgetList.getBudgetListEntry(entryNumber));
+        assertEquals(entry, budgetList.getEntryInBudgetList(entryNumber));
     }
 }
