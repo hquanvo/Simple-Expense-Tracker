@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.ArrayList;
 
 import static model.Category.*;
@@ -62,7 +63,7 @@ public class TrackerTest {
     void testCompareList() {
         ArrayList<Double> result = tracker.compareList(testList1, testList2);
         assertEquals(100, result.get(0));
-        assertTrue(result.get(1).equals(29.13+56.86-40));
+        assertEquals(29.13 + 56.86 - 40, result.get(1));
         assertEquals(-20, result.get(2));
         assertEquals(200, result.get(3));
         assertEquals(-1468.788, result.get(4));
@@ -70,7 +71,7 @@ public class TrackerTest {
 
         result = tracker.compareList(testList2, testList1);
         assertEquals(-100, result.get(0));
-        assertTrue(result.get(1).equals(40-(29.13+56.86)));
+        assertEquals(40 - (29.13 + 56.86), result.get(1));
         assertEquals(20, result.get(2));
         assertEquals(-200, result.get(3));
         assertEquals(1468.788, result.get(4));
@@ -89,6 +90,11 @@ public class TrackerTest {
 
     @Test
     void testAddAndRemove() {
+        ArrayList<BudgetList> otherList = new ArrayList<>();
+        otherList.add(testList1);
+        otherList.add(testList2);
+
+        assertEquals(otherList, tracker.getTracker());
         assertEquals(2, tracker.getTrackerSize());
         tracker.remove(testList1);
         assertEquals(1, tracker.getTrackerSize());
@@ -103,6 +109,15 @@ public class TrackerTest {
         tracker.add(testList1);
         assertEquals(5, tracker.getTrackerSize());
         assertEquals(testList2,tracker.getTrackerBudgetList(3));
+    }
+
+    @Test
+    void testEmptyTracker() {
+        assertFalse(tracker.isEmptyTracker());
+        tracker.remove(testList1);
+        tracker.remove(testList2);
+        assertTrue(tracker.isEmptyTracker());
+
     }
 
 }

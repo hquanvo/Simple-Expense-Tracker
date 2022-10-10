@@ -109,6 +109,11 @@ public class BudgetListTest {
         testExpectedAmountInCategory(960, 5);
     }
 
+    @Test
+    void testIsEmptyBudgetList() {
+        assertTrue(testList1.isEmptyBudgetList());
+    }
+
     //0 is RENT, 1 is FOOD, 2 is SUPPLIES, 3 is BILLS, 4 is OTHERS, 5 is TOTAL
     private void testExpectedAmountInCategory(int expectedAmount, int categoryIndex) {
         assertEquals(expectedAmount, testList2.summarize().get(categoryIndex));
@@ -119,6 +124,6 @@ public class BudgetListTest {
     }
 
     private void testEntryPos(Entry entry, BudgetList budgetList, int entryNumber) {
-        assertEquals(entry, budgetList.getBudgetListEntry(entryNumber));
+        assertEquals(entry, budgetList.getEntryInBudgetList(entryNumber));
     }
 }

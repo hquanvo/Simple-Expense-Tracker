@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // BudgetList contains information about the name of the budget list, and a budget list composed of multiple Entries.
 public class BudgetList extends Tracker {
     private String name;
-    private ArrayList<Entry> budgetList;
+    private final ArrayList<Entry> budgetList;
 
 
     //EFFECTS: Construct an empty budget list with a name and no entry in it
@@ -63,6 +63,11 @@ public class BudgetList extends Tracker {
         name = newName;
     }
 
+    //EFFECTS: Return true if the budget list is empty
+    public boolean isEmptyBudgetList() {
+        return getBudgetListSize() == 0;
+    }
+
     //getters
     public String getName() {
         return name;
@@ -77,7 +82,7 @@ public class BudgetList extends Tracker {
     }
 
     //REQUIRES: entryNumber > 0
-    public Entry getBudgetListEntry(int entryNumber) {
+    public Entry getEntryInBudgetList(int entryNumber) {
         return budgetList.get(entryNumber - 1);
     }
 }

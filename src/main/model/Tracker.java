@@ -38,8 +38,17 @@ public class Tracker {
         return report;
     }
 
+    //EFFECTS: Return true if the tracker is empty
+    public boolean isEmptyTracker() {
+        return getTrackerSize() == 0;
+    }
+
 
     //getters
+
+    public ArrayList<BudgetList> getTracker() {
+        return tracker;
+    }
 
     //EFFECTS: return the size of the tracker
     public int getTrackerSize() {
