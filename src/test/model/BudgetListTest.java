@@ -112,6 +112,7 @@ public class BudgetListTest {
     @Test
     void testIsEmptyBudgetList() {
         assertTrue(testList1.isEmptyBudgetList());
+        assertFalse(testList2.isEmptyBudgetList());
     }
 
     //0 is RENT, 1 is FOOD, 2 is SUPPLIES, 3 is BILLS, 4 is OTHERS, 5 is TOTAL
