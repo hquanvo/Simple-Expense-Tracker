@@ -47,19 +47,19 @@ public class Entry {
 
     public void setCategory(String ct) {
         switch (ct) {
-            case "Food":
+            case "food":
                 this.category = Category.FOOD;
                 break;
-            case "Rent":
+            case "rent":
                 this.category = Category.RENT;
                 break;
-            case "Supplies":
+            case "supplies":
                 this.category = Category.SUPPLIES;
                 break;
-            case "Bills":
+            case "bills":
                 this.category = Category.BILLS;
                 break;
-            case "Others":
+            case "others":
                 this.category = Category.OTHERS;
                 break;
             default:

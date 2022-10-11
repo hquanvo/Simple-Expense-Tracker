@@ -35,22 +35,22 @@ public class EntryTest {
 
     @Test
     public void testSetCategory() {
-        entry1.setCategory("Food");
+        entry1.setCategory("food");
         entry2.setCategory("");
         assertEquals(FOOD, entry1.getCategory());
         assertEquals(SUPPLIES, entry2.getCategory());
 
         entry1.setCategory("");
-        entry2.setCategory("Rent");
+        entry2.setCategory("rent");
         assertEquals(FOOD, entry1.getCategory());
         assertEquals(RENT, entry2.getCategory());
 
-        entry1.setCategory("Others");
-        entry2.setCategory("Bills");
+        entry1.setCategory("others");
+        entry2.setCategory("bills");
         assertEquals(OTHERS, entry1.getCategory());
         assertEquals(BILLS, entry2.getCategory());
 
-        entry2.setCategory("Supplies");
+        entry2.setCategory("supplies");
         assertEquals(SUPPLIES, entry2.getCategory());
     }
 

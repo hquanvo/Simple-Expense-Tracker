@@ -273,7 +273,7 @@ public class ExpenseTrackerApp {
                 System.out.println("Others: " + reportLine(difference, comparison, list1, list2));
                 break;
             case 6:
-                System.out.println("In total: you spent " + reportLine(difference, comparison, list1, list2));
+                System.out.println("In total: " + reportLine(difference, comparison, list1, list2));
                 break;
         }
     }
@@ -393,6 +393,7 @@ public class ExpenseTrackerApp {
                 break;
             case "return":
                 tracker.getTracker().set(position, budgetList);
+                trackerMenu(tracker);
                 break;
             default:
                 System.out.println("Invalid command, please try again.");
@@ -408,24 +409,31 @@ public class ExpenseTrackerApp {
         String date;
         String description;
 
+        try {
+            System.out.println("Please enter the amount spent into the new entry:");
+            amt = input.nextDouble();
+            input.nextLine();
+            System.out.println("Please enter one of the following category: 'Rent', 'Food', 'Supplies', "
+                    + "'Bills', 'Others' that the new entry belongs to:");
+            category = input.nextLine();
+            category = category.toLowerCase();
+            System.out.println("Please enter the date of the new entry (must be in yyyy-mm-dd format):");
+            date = input.nextLine();
+            System.out.println("(Optional) Please enter a description about the new entry:");
+            description = input.nextLine();
 
-        System.out.println("Please enter the amount spent into the new entry:");
-        amt = input.nextDouble();
-        input.nextLine();
-        System.out.println("Please enter one of the following category: 'Rent', 'Food', 'Supplies', 'Bills', 'Others' "
-                + "that the new entry belongs to (Please capitalize the first letter):");
-        category = input.nextLine();
-        System.out.println("Please enter the date of the new entry (must be in yyyy-mm-dd format):");
-        date = input.nextLine();
-        System.out.println("(Optional) Please enter a description about the new entry:");
-        description = input.nextLine();
-        Entry entry = new Entry(amt, date, Category.RENT, description);
-        entry.setCategory(category);
+            Entry entry = new Entry(amt, date, Category.OTHERS, description);
+            entry.setCategory(category);
 
-        budgetList.getBudgetList().add(entry);
+            budgetList.getBudgetList().add(entry);
 
-        //updating the tracker's budget list
-        updateAndReturn(budgetList, position);
+            //updating the tracker's budget list
+            updateAndReturn(budgetList, position);
+
+        } catch (Exception e) {
+            System.out.println("Cannot perform. Please try again.");
+        }
+
     }
 
     //MODIFIES: this, budgetList
@@ -586,15 +594,21 @@ public class ExpenseTrackerApp {
     private void editEntryDate(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter the new date (MUST BE IN yyyy-mm-dd FORMAT)");
         String newDate = input.nextLine();
-        entry.setDate(newDate);
-        updateEntry(entry, index, budgetList);
-        System.out.println("Finished editing an entry at position number " + (index + 1));
+        try {
+            entry.setDate(newDate);
+            updateEntry(entry, index, budgetList);
+            System.out.println("Finished editing an entry at position number " + (index + 1));
+        } catch (Exception e) {
+            System.out.println("Cannot perform. Date format invalid.");
+        }
+
     }
 
     private void editEntryCategory(Entry entry, int index, BudgetList budgetList) {
-        System.out.println("Please enter one of the following category: 'Rent', 'Food', 'Supplies', 'Bills', 'Others' "
-                + "(Please capitalize the first letter, or else the input is not valid):");
+        System.out.println("Please enter one of the following category: 'Rent', 'Food', 'Supplies', "
+                + "'Bills', 'Others':");
         String category = input.nextLine();
+        category = category.toLowerCase();
         entry.setCategory(category);
         updateEntry(entry, index, budgetList);
         System.out.println("Finished editing an entry at position number " + (index + 1));
