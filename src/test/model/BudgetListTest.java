@@ -19,11 +19,11 @@ public class BudgetListTest {
     void setup() {
         testList1 = new BudgetList("Eddie");
         testList2 = new BudgetList("September");
-        entry1 = new Entry(20, "2022-09-19", OTHERS, "My anime figurine");
+        entry1 = new Entry(20, "2022-09-19", OTHERS, "A figurine");
         entry2 = new Entry(400, "2022-09-12", BILLS, "Water, heat and wifi");
-        entry3 = new Entry(40, "2022-09-14", FOOD, "My crippling McDonald's addiction");
-        entry4 = new Entry(500, "2022-09-16", SUPPLIES, "Drills and mallets to smash deez");
-        entry5 = new Entry(1000, "2022-09-01", RENT, "I hate Vancouver housing");
+        entry3 = new Entry(40, "2022-09-14", FOOD, "McDonald's addiction");
+        entry4 = new Entry(500, "2022-09-16", SUPPLIES, "Drills and mallets");
+        entry5 = new Entry(1000, "2022-09-01", RENT, "");
         testList2.add(entry1);
         testList2.add(entry2);
         testList2.add(entry3);

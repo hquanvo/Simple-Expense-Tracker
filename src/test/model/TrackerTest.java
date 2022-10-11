@@ -33,14 +33,14 @@ public class TrackerTest {
 
         entry1 = new Entry(1000, "2022-01-01", RENT, "Rent");
         entry2 = new Entry(40, "2022-01-03", FOOD, "Grocery store");
-        entry3 = new Entry(20, "2022-01-14", SUPPLIES, "Why did I decide to make 10 entries");
+        entry3 = new Entry(20, "2022-01-14", SUPPLIES, "Various tools");
         entry4 = new Entry(100, "2022-01-01", BILLS, "Water, heat and internet");
         entry5 = new Entry(1500, "2022-01-01", OTHERS, "PC funding");
 
-        entry6 = new Entry(1100, "2022-02-01", RENT, "Rent increase I HATE VANCOUVER HOUSING");
+        entry6 = new Entry(1100, "2022-02-01", RENT, "Rent increase");
         entry7 = new Entry(29.13, "2022-02-12", FOOD, "Grocery store");
         entry8 = new Entry(56.86, "2022-02-22", FOOD, "Grocery store");
-        entry9 = new Entry(300, "2022-02-01", BILLS, "Water, heat and internet I HATE VANCOUVER");
+        entry9 = new Entry(300, "2022-02-01", BILLS, "Water, heat and internet");
         entry10 = new Entry(31.212, "2022-02-03", OTHERS, "Gaming controller");
 
         testList1.add(entry1);
