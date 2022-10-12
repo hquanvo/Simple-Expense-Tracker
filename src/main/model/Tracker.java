@@ -7,26 +7,26 @@ public class Tracker {
     private ArrayList<BudgetList> tracker;
 
 
-    //EFFECTS: Construct a tracker with 0 budget list
+    // EFFECTS: Construct a tracker with 0 budget list
     public Tracker() {
         tracker = new ArrayList<>();
     }
 
-    //MODIFIES: this
-    //EFFECTS: Add a budget list into the tracker, can be duplicates
+    // MODIFIES: this
+    // EFFECTS: Add a budget list into the tracker
     public void add(BudgetList budgetList) {
         tracker.add(budgetList);
     }
 
-    //MODIFIES: this
-    //EFFECTS: Remove a budget list from tracker.
+    // MODIFIES: this
+    // EFFECTS: Remove a budget list from tracker
     public void remove(BudgetList budgetList) {
         tracker.remove(budgetList);
     }
 
-    //REQUIRES: tracker size >= 2
-    //EFFECTS: Return an array list that shows the amount difference between list1 and list2, in order of RENT, FOOD
-    //         SUPPLIES, BILLS, OTHERS and TOTAL
+    // REQUIRES: tracker size >= 2
+    // EFFECTS: Return an array list that shows the amount difference between list1 and list2, in order of RENT, FOOD
+    //          SUPPLIES, BILLS, OTHERS and TOTAL
     public ArrayList<Double> compareList(BudgetList list1, BudgetList list2) {
         int i;
         ArrayList<Double> summary1 = list1.summarize();
@@ -38,7 +38,7 @@ public class Tracker {
         return report;
     }
 
-    //EFFECTS: Return true if the tracker is empty
+    // EFFECTS: Return true if the tracker is empty
     public boolean isEmptyTracker() {
         return getTrackerSize() == 0;
     }
@@ -50,13 +50,13 @@ public class Tracker {
         return tracker;
     }
 
-    //EFFECTS: return the size of the tracker
+    // EFFECTS: return the size of the tracker
     public int getTrackerSize() {
         return tracker.size();
     }
 
-    //REQUIRES: i > 0
-    //EFFECTS: return the numbered budget list in the tracker
+    // REQUIRES: i > 0
+    // EFFECTS: return the numbered budget list in the tracker
     public BudgetList getTrackerBudgetList(int i) {
         return tracker.get(i - 1);
     }

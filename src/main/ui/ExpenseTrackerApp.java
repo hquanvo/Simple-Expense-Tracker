@@ -10,28 +10,28 @@ import java.util.Scanner;
 
 //Expense Tracker Application
 public class ExpenseTrackerApp {
-    private Scanner input; //Track users' input
+    private Scanner input; // Enter users' input
     private Tracker tracker; // Tracker
 
-    //MODIFIES: this
-    //EFFECTS: Initialize the tracker
+    // MODIFIES: this
+    // EFFECTS: Initialize the tracker
     private void initialize() {
         input = new Scanner(System.in);
         tracker = new Tracker();
     }
 
-    //The following methods are based on the TellerApp class in the TellerApp project provided by
+    // The following methods are based on the TellerApp class in the TellerApp project provided by
     // UBC CPSC 210 instructor team.
 
-    //EFFECTS: Run the app
+    // EFFECTS: Run the app
     public ExpenseTrackerApp() {
         initialize();
-        welcomeScreen();
+        welcomeMenu();
     }
 
-    //MODIFIES: this
-    //EFFECTS: creates the welcome menu, read user inputs
-    private void welcomeScreen() {
+    // MODIFIES: this
+    // EFFECTS: Runs the welcome menu and processes the user input
+    private void welcomeMenu() {
         boolean runProgram = true;
         String command;
 
@@ -51,7 +51,7 @@ public class ExpenseTrackerApp {
     }
 
 
-    //EFFECTS: Show the Welcome screen when opening the application
+    // EFFECTS: Show the Welcome menu when opening the application
     private void displayWelcome() {
         if (tracker.isEmptyTracker()) {
             System.out.println("Welcome to the Expense Tracker.");
@@ -62,8 +62,8 @@ public class ExpenseTrackerApp {
         System.out.println("Enter 'yes' to proceed to the Tracker Menu, 'no' to exit.");
     }
 
-    //MODIFIES: this
-    //EFFECTS: Run a tracker menu
+    // MODIFIES: this
+    // EFFECTS: Runs the tracker menu and processes the user input
     private void trackerMenu(Tracker tracker) {
         this.tracker = tracker;
         String command = "";
@@ -75,7 +75,7 @@ public class ExpenseTrackerApp {
             } else {
                 printBudgetLists();
             }
-            displayTrackerMenuOptions();
+            printTrackerMenuOptions();
             command = input.nextLine();
             command = command.toLowerCase();
             processTrackerMenuOptions(command);
@@ -83,7 +83,7 @@ public class ExpenseTrackerApp {
     }
 
 
-    //EFFECTS: Display the list of budget lists
+    // EFFECTS: Print the list of budget lists
     private void printBudgetLists() {
         System.out.println("Here are the current budget lists:");
         int index = 1;
@@ -93,8 +93,8 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //EFFECTS: Display options for the tracker menu
-    private static void displayTrackerMenuOptions() {
+    // EFFECTS: Print the available options for the tracker menu
+    private static void printTrackerMenuOptions() {
         System.out.println("Please select from the following");
         System.out.println("\n 'add' to add a new budget list");
         System.out.println("\n 'remove' to delete a budget list");
@@ -105,8 +105,8 @@ public class ExpenseTrackerApp {
 
     }
 
-    //MODIFIES: this
-    //EFFECTS: Process the command for the tracker menu
+    // MODIFIES: this
+    // EFFECTS: Process the command for the tracker menu
     private void processTrackerMenuOptions(String command) {
         switch (command) {
             case "add":
@@ -131,8 +131,8 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: add a new budget list into the tracker
+    // MODIFIES: this
+    // EFFECTS: Add a new budget list into the tracker
     private void addBudgetList() {
         String name;
 
@@ -146,9 +146,8 @@ public class ExpenseTrackerApp {
     }
 
 
-
-    //MODIFIES: this
-    //EFFECTS: remove a budget list from the tracker
+    // MODIFIES: this
+    // EFFECTS: Remove a budget list from the tracker
     private void removeBudgetList() {
         if (tracker.isEmptyTracker()) {
             System.out.println("There is nothing to remove.");
@@ -156,7 +155,7 @@ public class ExpenseTrackerApp {
             printBudgetLists();
             System.out.println("Please enter the budget list position number that you would like to remove:");
             int index = input.nextInt();
-            String newName = input.nextLine();
+            input.nextLine();
             if (invalidBudgetListPosition(index)) {
                 System.out.println("Invalid position, please try again.");
             } else {
@@ -164,11 +163,12 @@ public class ExpenseTrackerApp {
                 System.out.println("Removed list at position number " + index);
             }
         }
+        //return to prev screen
         trackerMenu(tracker);
     }
 
-    //MODIFIES: this
-    //EFFECTS: rename a budget list from the tracker
+    // MODIFIES: this
+    // EFFECTS: rename a budget list from the tracker
     private void renameBudgetList() {
         if (tracker.isEmptyTracker()) {
             System.out.println("There is nothing to rename.");
@@ -177,21 +177,21 @@ public class ExpenseTrackerApp {
             printBudgetLists();
             System.out.println("Please enter the budget list position number that you would like to rename:");
             int index = input.nextInt();
-            String newName = input.nextLine();
+            input.nextLine();
             if (invalidBudgetListPosition(index)) {
                 System.out.println("Invalid position, please try again.");
                 trackerMenu(tracker);
             } else {
                 System.out.println("Please enter the new name of the list:");
-                newName = input.nextLine();
+                String newName = input.nextLine();
                 tracker.getTrackerBudgetList(index).rename(newName);
                 System.out.println("Renamed list at position number " + index);
             }
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: Compare two budget lists, print out a report
+    // MODIFIES: this
+    // EFFECTS: Compare two budget lists, print out a report
     private void compareBudgetList() {
         if (tracker.getTrackerSize() < 2) {
             System.out.println("Not enough budget lists for comparison, please make sure there are at least "
@@ -218,7 +218,7 @@ public class ExpenseTrackerApp {
         trackerMenu(tracker);
     }
 
-    //EFFECTS: Retrieve a budget list to be used in a report
+    // EFFECTS: Retrieve a budget list to be used in a report
     private BudgetList retrieveBudgetList(String order) {
         printBudgetLists();
         System.out.println("Select the " + order + " budget list by entering its position number.");
@@ -231,15 +231,14 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //EFFECTS: Return true if the index position is invalid
+    // EFFECTS: Return true if the index position is invalid
     private boolean invalidBudgetListPosition(int index) {
         return index > tracker.getTrackerSize() || index < 0;
     }
 
-    //EFFECTS: print a report based on the result of comparison
+    // EFFECTS: Print a report based on the result of comparison
     private void printReport(ArrayList<Double> differenceList, BudgetList budgetList1, BudgetList budgetList2) {
-        int i;
-        for (i = 1; i <= 6; i++) {
+        for (int i = 1; i <= 6; i++) {
             double difference = differenceList.get(i - 1);
             if (difference > 0) {
                 printReportNonZero(i, difference, "more", budgetList1, budgetList2);
@@ -253,8 +252,8 @@ public class ExpenseTrackerApp {
 
     }
 
-    //REQUIRES: comparison must be either "more" or "less"
-    //EFFECTS: Print a report when the difference between the two lists is not 0
+    // REQUIRES: comparison must be either "more" or "less"
+    // EFFECTS: Print a report when the difference in a category between the two lists is nonzero
     private void printReportNonZero(int i, Double difference, String comparison, BudgetList list1, BudgetList list2) {
         switch (i) {
             case 1:
@@ -278,8 +277,8 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //REQUIRES: comparison must be either "more" or "less"
-    //EFFECTS: Print a line for the report when the difference between the two list is nonzero
+    // REQUIRES: comparison must be either "more" or "less"
+    // EFFECTS: Print a line for the report when the difference in a category between the two list is nonzero
     private String reportLine(Double difference, String comparison, BudgetList list1, BudgetList list2) {
         String list1Name = list1.getName();
         String list2Name = list2.getName();
@@ -288,8 +287,7 @@ public class ExpenseTrackerApp {
                 + list1Name + ".";
     }
 
-    //EFFECTS: Print out a report line when there's no difference between the two budget list when comparing amt spent
-    //          in a category
+    // EFFECTS: Print a line for the report when the difference in a category between the two list is zero
     private void printReportZero(int i) {
         switch (i) {
             case 1:
@@ -314,8 +312,8 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: View a budget list in more details
+    // MODIFIES: this
+    // EFFECTS: View a budget list in more details
     private void viewBudgetList() {
         if (tracker.isEmptyTracker()) {
             System.out.println("There is nothing view.");
@@ -324,7 +322,7 @@ public class ExpenseTrackerApp {
             printBudgetLists();
             System.out.println("Please enter the budget list position number that you would like to view in details");
             int index = input.nextInt();
-            String command = input.nextLine();
+            input.nextLine();
             if (invalidBudgetListPosition(index)) {
                 System.out.println("Invalid position, please try again.");
                 viewBudgetList();
@@ -334,8 +332,8 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: View a budget list with a menu
+    // MODIFIES: this
+    // EFFECTS: Run the budget list menu, processes the user input
     private void budgetListMenu(BudgetList budgetList, int position) {
         String command = "";
 
@@ -354,7 +352,7 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //EFFECTS: Print all entries in a budget list
+    // EFFECTS: Print all entries in a budget list
     private void printEntries(BudgetList budgetList) {
         System.out.println("Here are the entries:");
         int index = 1;
@@ -365,7 +363,7 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //EFFECTS: Display options for the budget list menu
+    // EFFECTS: Display options for the budget list menu
     private static void displayBudgetListMenuOptions() {
         System.out.println("Please select from the following");
         System.out.println("\n 'add' to add a new entry");
@@ -375,8 +373,8 @@ public class ExpenseTrackerApp {
         System.out.println("\n 'return' to return to the Tracker Menu screen");
     }
 
-    //MODIFIES: this
-    //EFFECTS: Process the command for the tracker menu
+    // MODIFIES: this
+    // EFFECTS: Process the command for the budget list menu
     private void processBudgetListMenuOptions(String command, BudgetList budgetList, int position) {
         switch (command) {
             case "add":
@@ -401,8 +399,8 @@ public class ExpenseTrackerApp {
     }
 
 
-    //MODIFIES: this, budgetList
-    //EFFECTS: Add an entry into a budget list
+    // MODIFIES: this, budgetList
+    // EFFECTS: Add an entry into a budget list
     private void addEntry(BudgetList budgetList, int position) {
         double amt;
         String category;
@@ -436,8 +434,8 @@ public class ExpenseTrackerApp {
 
     }
 
-    //MODIFIES: this, budgetList
-    //EFFECTS: Remove an entry from a budget list
+    // MODIFIES: this, budgetList
+    // EFFECTS: Remove an entry from a budget list
     private void removeEntry(BudgetList budgetList, int position) {
         if (budgetList.isEmptyBudgetList()) {
             System.out.println("There is nothing to remove.");
@@ -445,7 +443,7 @@ public class ExpenseTrackerApp {
             printEntries(budgetList);
             System.out.println("Please enter the entry position number that you would like to remove:");
             int index = input.nextInt();
-            String command = input.nextLine();
+            input.nextLine();
             if (invalidEntryPosition(budgetList, index)) {
                 System.out.println("There is no entry at that position number, please try again.");
             } else {
@@ -457,13 +455,13 @@ public class ExpenseTrackerApp {
         updateAndReturn(budgetList, position);
     }
 
-    //EFFECTS: return true if the entered index position for entry is invalid
+    // EFFECTS: return true if the entered index position for entry is invalid
     private static boolean invalidEntryPosition(BudgetList budgetList, int index) {
         return index > budgetList.getBudgetListSize() || index < 0;
     }
 
-    //MODIFIES: this
-    //EFFECTS: View a summary of the budget list in terms of amt spent on RENT, FOOD, SUPPLIES, BILLS, OTHERS, and
+    // MODIFIES: this
+    // EFFECTS: View a summary of the budget list in terms of amount spent on RENT, FOOD, SUPPLIES, BILLS, OTHERS, and
     //          the TOTAL amount;
     private void summarizeBudgetList(BudgetList budgetList, int position) {
         ArrayList<Double> summary = budgetList.summarize();
@@ -480,15 +478,14 @@ public class ExpenseTrackerApp {
         updateAndReturn(budgetList, position);
     }
 
-    //MODIFIES: this
-    //EFFECTS: Update the tracker's list of budget list with a new instance of budget list, before returning to the
-    //          budget list menu.
+    // MODIFIES: this
+    // EFFECTS: Update the tracker's list of budget list before returning to the budget list menu.
     private void updateAndReturn(BudgetList budgetList, int position) {
         tracker.getTracker().set(position, budgetList);
         budgetListMenu(budgetList, position);
     }
 
-    //EFFECTS: Print a summary line, corresponding to the category at i position in the summary list
+    // EFFECTS: Print a summary line, corresponding to the category at i position in the summary list
     private void printSummary(Double amt, int i) {
         System.out.println("In summary:");
         switch (i) {
@@ -513,8 +510,8 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //MODIFIES: this, budgetList
-    //EFFECTS: Open the menu to edit an entry
+    // MODIFIES: this, budgetList
+    // EFFECTS: Open the edit entry menu
     private void editEntryMenu(BudgetList budgetList, int position) {
         if (budgetList.isEmptyBudgetList()) {
             System.out.println("There is nothing to edit.");
@@ -522,13 +519,13 @@ public class ExpenseTrackerApp {
             printEntries(budgetList);
             System.out.println("Please enter the entry position number that you would like to edit:");
             int index = input.nextInt();
-            String command = input.nextLine();
+            input.nextLine();
             if (invalidEntryPosition(budgetList, index)) {
                 System.out.println("There is no entry at that position number, please try again.");
             } else {
                 Entry entry = budgetList.getEntryInBudgetList(index);
                 printEditMenu();
-                command = input.nextLine();
+                String command = input.nextLine();
                 command = command.toLowerCase();
                 processEditOption(command, entry, index - 1, budgetList);
             }
@@ -538,7 +535,7 @@ public class ExpenseTrackerApp {
     }
 
 
-    //EFFECTS: Print the edit menu
+    // EFFECTS: Print the edit menu
     private void printEditMenu() {
         System.out.println("Please select from the following to edit");
         System.out.println("\n 'amount' to change the amount of money spent");
@@ -549,8 +546,8 @@ public class ExpenseTrackerApp {
     }
 
 
-    //MODIFIES: this
-    //EFFECTS: Process the edit command for an entry at the index number in the budget list
+    // MODIFIES: this
+    // EFFECTS: Process the edit entry command
     private void processEditOption(String command, Entry entry, int index, BudgetList budgetList) {
         switch (command) {
             case "amount":
@@ -566,7 +563,7 @@ public class ExpenseTrackerApp {
                 editEntryDescription(entry, index, budgetList);
                 break;
             case "return":
-                updateEntry(entry, index, budgetList);
+                updateEntryToList(entry, index, budgetList);
                 System.out.println("Cancelled editing.");
                 break;
             default:
@@ -574,29 +571,31 @@ public class ExpenseTrackerApp {
         }
     }
 
-    //MODIFIES: this, entry, budgetlist
-    //EFFECTS: Update the entry inside a budget list
-    private void updateEntry(Entry entry, int index, BudgetList budgetList) {
+    // MODIFIES: this, budgetlist
+    // EFFECTS: Update the entry inside a budget list
+    private void updateEntryToList(Entry entry, int index, BudgetList budgetList) {
         budgetList.getBudgetList().set(index, entry);
     }
 
-    //MODIFIES: this, entry, budgetlist
-    //EFFECTS: Change an entry amount
+    // MODIFIES: this, entry, budgetlist
+    // EFFECTS: Change an entry amount
     private void editEntryAmount(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter the new amount of money:");
         double newAmount = input.nextDouble();
         entry.setAmount(newAmount);
         input.nextLine();
-        updateEntry(entry, index, budgetList);
+        updateEntryToList(entry, index, budgetList);
         System.out.println("Finished editing an entry at position number " + (index + 1));
     }
 
+    // MODIFIES: this, entry, budgetlist
+    // EFFECTS: Change an entry date
     private void editEntryDate(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter the new date (MUST BE IN yyyy-mm-dd FORMAT)");
         String newDate = input.nextLine();
         try {
             entry.setDate(newDate);
-            updateEntry(entry, index, budgetList);
+            updateEntryToList(entry, index, budgetList);
             System.out.println("Finished editing an entry at position number " + (index + 1));
         } catch (Exception e) {
             System.out.println("Cannot perform. Date format invalid.");
@@ -604,21 +603,25 @@ public class ExpenseTrackerApp {
 
     }
 
+    // MODIFIES: this, entry, budgetlist
+    // EFFECTS: Change an entry category
     private void editEntryCategory(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter one of the following category: 'Rent', 'Food', 'Supplies', "
                 + "'Bills', 'Others':");
         String category = input.nextLine();
         category = category.toLowerCase();
         entry.setCategory(category);
-        updateEntry(entry, index, budgetList);
+        updateEntryToList(entry, index, budgetList);
         System.out.println("Finished editing an entry at position number " + (index + 1));
     }
 
+    // MODIFIES: this, entry, budgetlist
+    // EFFECTS: Change an entry description
     private void editEntryDescription(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter the new description:");
         String desc = input.nextLine();
         entry.setDescription(desc);
-        updateEntry(entry, index, budgetList);
+        updateEntryToList(entry, index, budgetList);
         System.out.println("Finished editing an entry at position number " + (index + 1));
     }
 
