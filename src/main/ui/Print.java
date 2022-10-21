@@ -171,4 +171,8 @@ public class Print {
         System.out.println("Input invalid, not a number. Please try again.");
     }
 
+    protected static void printCategoryCreation() {
+        System.out.println("Please enter one of the following category: 'Rent', 'Food', 'Supplies', "
+                + "'Bills', 'Others' that the new entry belongs to:");
+    }
 }

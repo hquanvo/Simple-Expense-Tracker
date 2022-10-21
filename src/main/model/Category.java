@@ -6,5 +6,5 @@ public enum Category {
     FOOD,
     SUPPLIES,
     BILLS,
-    OTHERS //For an expenditure that does not belong in any of the former categories.
+    OTHERS //For an expenditure that does not belong in any of the former categories. Default category.
 }

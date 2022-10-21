@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,7 @@ public class TrackerTest {
     private Entry entry10;
 
     @BeforeEach
-    void setup() {
+    void setup() throws NegativeAmountException {
         tracker = new Tracker();
         testList1 = new BudgetList("January");
         testList2 = new BudgetList("February");

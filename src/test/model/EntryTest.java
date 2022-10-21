@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +12,40 @@ public class EntryTest {
     private Entry entry1;
     private Entry entry2;
     @BeforeEach
-    public void setup() {
+    public void setup() throws NegativeAmountException {
         entry1 = new Entry(12.0, "2000-01-01", FOOD,"");
         entry2 = new Entry(24.0, "2000-01-01", SUPPLIES, "");
 
+    }
+
+    @Test
+    public void testNegativeAmountExceptionConstructor() {
+        try {
+            new Entry(-2, "2000-01-01", FOOD, "");
+        } catch (NegativeAmountException e) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testNegativeAmountExceptionSetAmount() {
+        try {
+            entry1.setAmount(-1);
+        } catch (NegativeAmountException e) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testDateTimeParseException() throws NegativeAmountException {
+            Entry entry = new Entry(1, "", FOOD, "");
+            assertEquals("2000-01-01", entry.getDate());
+    }
+
+    @Test
+    public void testSetIncorrectDate() {
+        entry1.setDate("");
+        assertEquals("2000-01-01", entry1.getDate());
     }
 
     @Test
@@ -26,7 +57,7 @@ public class EntryTest {
     }
 
     @Test
-    public void testSetAmount() {
+    public void testSetAmount() throws NegativeAmountException {
         entry1.setAmount(400.49);
         assertEquals(400.49, entry1.getAmount());
         entry2.setAmount(20.03);

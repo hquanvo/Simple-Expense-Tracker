@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class BudgetListTest {
     private Entry entry5;
 
     @BeforeEach
-    void setup() {
+    void setup() throws NegativeAmountException {
         testList1 = new BudgetList("Eddie");
         testList2 = new BudgetList("September");
         entry1 = new Entry(20, "2022-09-19", OTHERS, "A figurine");
@@ -89,7 +90,7 @@ public class BudgetListTest {
     }
 
     @Test
-    void testSumCertainEntry() {
+    void testSumCertainEntry() throws NegativeAmountException {
         assertEquals(500, testList2.sumCertainEntry(SUPPLIES));
         testList2.add(entry4);
         assertEquals(1000, testList2.sumCertainEntry(SUPPLIES));
