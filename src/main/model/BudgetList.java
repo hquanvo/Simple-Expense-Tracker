@@ -92,8 +92,8 @@ public class BudgetList implements Writable {
         return budgetList.get(entryNumber - 1);
     }
 
-    // toJson and entriesToJson are based on the code found in JsonSerealizationDemo project provided by CPSC 210
-    // instructors at UBC
+    // CITATION: toJson and entriesToJson are based on the code found in JsonSerealizationDemo project provided by
+    //           CPSC 210 instructors at UBC
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

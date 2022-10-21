@@ -118,7 +118,8 @@ public class Entry implements Writable {
         this.description = description;
     }
 
-    // toJson is based on the code found in JsonSerealizationDemo project provided by CPSC 210 instructors at UBC
+    // CITATION: toJson is based on the code found in JsonSerealizationDemo project provided by CPSC 210 instructors
+    //            at UBC
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

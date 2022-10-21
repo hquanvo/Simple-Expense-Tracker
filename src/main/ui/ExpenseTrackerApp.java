@@ -22,7 +22,7 @@ public class ExpenseTrackerApp extends Print {
         tracker = new Tracker();
     }
 
-    // The following methods are based on the TellerApp class in the TellerApp project provided by
+    // CITATION: The following methods are based on the TellerApp class in the TellerApp project provided by
     // UBC CPSC 210 instructor team.
 
     // EFFECTS: Run the app
