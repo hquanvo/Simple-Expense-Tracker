@@ -1,6 +1,8 @@
 package model;
 
 import exceptions.NegativeAmountException;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -9,14 +11,14 @@ import java.time.format.DateTimeParseException;
 
 // An Entry contains information about the amount of money spent in an expenditure (in dollars), the category the
 // expenditure belongs to, the date of the expenditure, and a description about the expenditure.
-public class Entry {
+public class Entry implements Writable {
     private double amount; //amount of money spent
     private Category category; //categories
     private LocalDate date; //
     private String description;
 
     // EFFECTS: Construct an Entry with amount spent, a date, a category and a description. If date is invalid, defaults
-    //          to 2000-01-01. If amt <= 0, throw NegativeAmountException
+    //          to 2000-01-01. If amt <= 0, throw NegativeAmountException. NegativeAmountException takes priority
     public Entry(double amt, String date, Category category, String description)
             throws NegativeAmountException, DateTimeParseException {
         if (amt <= 0) {
@@ -74,8 +76,9 @@ public class Entry {
             case "bills":
                 this.category = Category.BILLS;
                 break;
-            default:
+            case "others":
                 this.category = Category.OTHERS;
+            default:
                 break;
         }
     }
@@ -113,5 +116,16 @@ public class Entry {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    // toJson is based on the code found in JsonSerealizationDemo project provided by CPSC 210 instructors at UBC
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("amount", amount);
+        json.put("category", category);
+        json.put("date", date);
+        json.put("description", description);
+        return json;
     }
 }

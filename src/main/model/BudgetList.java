@@ -1,9 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonWriter;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
+
 // BudgetList contains information about the name of the budget list, and a budget list composed of multiple Entries.
-public class BudgetList {
+public class BudgetList implements Writable {
     private String name;
     private final ArrayList<Entry> budgetList;
 
@@ -84,5 +90,25 @@ public class BudgetList {
     // REQUIRES: entryNumber > 0
     public Entry getEntryInBudgetList(int entryNumber) {
         return budgetList.get(entryNumber - 1);
+    }
+
+    // toJson and entriesToJson are based on the code found in JsonSerealizationDemo project provided by CPSC 210
+    // instructors at UBC
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("entries", entriesToJSon());
+        return json;
+    }
+
+    // EFFECTS: Write all entries in a budget list to be a JSonArray
+    private JSONArray entriesToJSon() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Entry entry : budgetList) {
+            jsonArray.put(entry.toJson());
+        }
+        return jsonArray;
     }
 }

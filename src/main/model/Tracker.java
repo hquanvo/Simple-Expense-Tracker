@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 //The first thing the user will access. Contains multiple budget lists and represent the Expense Tracker App in general.
@@ -59,5 +62,25 @@ public class Tracker {
     // EFFECTS: return the numbered budget list in the tracker
     public BudgetList getTrackerBudgetList(int i) {
         return tracker.get(i - 1);
+    }
+
+    // toJson and budgetListToJson are based on the code found in JsonSerealizationDemo project provided by CPSC 210
+    // instructors at UBC
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("tracker", budgetListToJson());
+
+        return json;
+    }
+
+    // EFFECTS: Return all budget list in the tracker as a JSONArray
+    private JSONArray budgetListToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (BudgetList budgetList : tracker) {
+            jsonArray.put(budgetList.toJson());
+        }
+
+        return jsonArray;
     }
 }

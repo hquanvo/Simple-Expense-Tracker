@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.time.format.DateTimeParseException;
+
 import static model.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +23,20 @@ public class EntryTest {
     @Test
     public void testNegativeAmountExceptionConstructor() {
         try {
-            new Entry(-2, "2000-01-01", FOOD, "");
+           new Entry(-2, "2000-01-01", FOOD, "");
+            fail("NegativeAmountException was not thrown");
+        } catch (NegativeAmountException e) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testTwoExceptionConstructor() {
+        try {
+            new Entry(-2, "", FOOD, "");
+            fail("No exception was thrown");
+        } catch (DateTimeParseException e) {
+            fail("Unexpected DateTimeParseException");
         } catch (NegativeAmountException e) {
             //pass
         }
@@ -31,6 +46,7 @@ public class EntryTest {
     public void testNegativeAmountExceptionSetAmount() {
         try {
             entry1.setAmount(-1);
+            fail("NegativeAmountException was not thrown");
         } catch (NegativeAmountException e) {
             //pass
         }
