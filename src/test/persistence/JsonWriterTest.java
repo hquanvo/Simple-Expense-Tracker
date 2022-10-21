@@ -67,10 +67,18 @@ public class JsonWriterTest extends JsonTest {
             tracker = reader.read();
 
             assertEquals(3, tracker.getTrackerSize());
-            assertEquals(testList1, tracker.getTrackerBudgetList(1));
-            assertEquals(testList1, tracker.getTrackerBudgetList(3));
-            assertEquals(testList2, tracker.getTrackerBudgetList(2));
+            checkBudgetList(tracker.getTrackerBudgetList(1), "testList1", testList1.getBudgetList());
+            checkBudgetList(tracker.getTrackerBudgetList(3), "testList1", testList1.getBudgetList());
+            checkBudgetList(tracker.getTrackerBudgetList(2), "testList2", testList2.getBudgetList());
 
+            assertTrue(tracker.getTrackerBudgetList(1).isEmptyBudgetList());
+            assertTrue(tracker.getTrackerBudgetList(3).isEmptyBudgetList());
+
+            checkEntry(tracker.getTrackerBudgetList(2).
+                    getEntryInBudgetList(1), 1.0, OTHERS, "2000-01-01", "");
+            checkEntry(tracker.getTrackerBudgetList(2).
+                    getEntryInBudgetList(2),
+                    2000.0, RENT, "2003-12-15", "Monthly rent");
 
 
         } catch (IOException e) {

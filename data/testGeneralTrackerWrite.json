@@ -1,0 +1,27 @@
+{"tracker": [
+    {
+        "entries": [],
+        "name": "testList1"
+    },
+    {
+        "entries": [
+            {
+                "date": "2000-01-01",
+                "amount": 1,
+                "description": "",
+                "category": "OTHERS"
+            },
+            {
+                "date": "2003-12-15",
+                "amount": 2000,
+                "description": "Monthly rent",
+                "category": "RENT"
+            }
+        ],
+        "name": "testList2"
+    },
+    {
+        "entries": [],
+        "name": "testList1"
+    }
+]}
