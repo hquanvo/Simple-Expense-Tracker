@@ -23,12 +23,20 @@
         "name": "September"
     },
     {
-        "entries": [{
-            "date": "2022-10-10",
-            "amount": 168.12,
-            "description": "H&M",
-            "category": "OTHERS"
-        }],
+        "entries": [
+            {
+                "date": "2022-10-10",
+                "amount": 168.12,
+                "description": "H&M",
+                "category": "OTHERS"
+            },
+            {
+                "date": "2022-10-05",
+                "amount": 40,
+                "description": "Grocery",
+                "category": "FOOD"
+            }
+        ],
         "name": "October"
     }
 ]}
