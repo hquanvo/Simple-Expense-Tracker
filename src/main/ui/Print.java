@@ -16,8 +16,9 @@ public class Print {
         } else {
             System.out.println("Welcome back to the Expense Tracker.");
         }
-        System.out.println("Would you like to view your budget lists?");
-        System.out.println("Enter 'yes' to proceed to the Tracker Menu, 'no' to exit.");
+        System.out.println("You can view, save or load your budget lists here.");
+        System.out.println("Enter 'view' to proceed to the Tracker Menu, 'quit' to exit the app, 'save' to save your "
+                + "data, or 'load' to load your data.");
     }
 
     // EFFECTS: Print the available options for the tracker menu

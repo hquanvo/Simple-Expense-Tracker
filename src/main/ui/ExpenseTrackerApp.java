@@ -5,21 +5,32 @@ import model.BudgetList;
 import model.Category;
 import model.Entry;
 import model.Tracker;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// CITATION: Code related to saving and loading are modeled after the code found in JsonSerializationDemo project
+//           provided by the CPSC 210 instructors at UBC
 //Expense Tracker Application
 public class ExpenseTrackerApp extends Print {
+    private static final String FILE_LOCATION = "./data/tracker.json";
     private Scanner input; // Enter users' input
     private Tracker tracker; // Tracker
+    private JsonReader jsonReader; // Reader for loading
+    private JsonWriter jsonWriter; // Writer for saving
 
     // MODIFIES: this
     // EFFECTS: Initialize the tracker
     private void initialize() {
         input = new Scanner(System.in);
         tracker = new Tracker();
+        jsonWriter = new JsonWriter(FILE_LOCATION);
+        jsonReader = new JsonReader(FILE_LOCATION);
     }
 
     // CITATION: The following methods are based on the TellerApp class in the TellerApp project provided by
@@ -42,10 +53,36 @@ public class ExpenseTrackerApp extends Print {
             command = input.nextLine();
             command = command.toLowerCase();
 
-            if (command.equals("no")) {
+            if (command.equals("quit")) {
+                quitMenu();
                 runProgram = false;
-            } else if (command.equals("yes")) {
+            } else if (command.equals("view")) {
                 trackerMenu(tracker);
+            } else if (command.equals("save")) {
+                saveTracker();
+            } else if (command.equals("load")) {
+                loadTracker();
+            } else {
+                System.out.println("Invalid command, please try again.");
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Runs the quit menu
+    private void quitMenu() {
+        boolean quitMenu = true;
+        String command;
+
+        while (quitMenu) {
+            System.out.println("Would you like to save your data? Enter 'save' to save or 'quit' to quit "
+                    + "without saving.");
+            command = input.nextLine();
+            command = command.toLowerCase();
+            if (command.equals("save")) {
+                saveTracker();
+            } else if (command.equals("quit")) {
+                quitMenu = false;
             } else {
                 System.out.println("Invalid command, please try again.");
             }
@@ -507,6 +544,30 @@ public class ExpenseTrackerApp extends Print {
         System.out.println("Finished editing an entry at position number " + (index + 1));
     }
 
+    // EFFECTS: Save the tracker to tracker.json
+    private void saveTracker() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(tracker);
+            jsonWriter.close();
+            System.out.println("All budget lists in the tracker has been successfully saved to " + FILE_LOCATION);
+        } catch (FileNotFoundException e) {
+            System.out.println("Saving failed, unable to write to " + FILE_LOCATION);
 
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Loads the tracker from tracker.json
+    private void loadTracker() {
+        try {
+            tracker = jsonReader.read();
+            System.out.println("All budget lists successfully loaded from " + FILE_LOCATION);
+        } catch (IOException e) {
+            System.out.println("Unable to load budget lists from " + FILE_LOCATION);
+        } catch (NegativeAmountException e) {
+            System.out.println("Attempted to read an impossible file, unable to load.");
+        }
+    }
 }
 
