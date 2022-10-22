@@ -1,0 +1,34 @@
+{"tracker": [
+    {
+        "entries": [
+            {
+                "date": "2022-09-01",
+                "amount": 1300,
+                "description": "Monthly Rent",
+                "category": "RENT"
+            },
+            {
+                "date": "2022-09-20",
+                "amount": 32.42,
+                "description": "Ikea",
+                "category": "SUPPLIES"
+            },
+            {
+                "date": "2022-09-11",
+                "amount": 15.74,
+                "description": "Sesame",
+                "category": "FOOD"
+            }
+        ],
+        "name": "September"
+    },
+    {
+        "entries": [{
+            "date": "2022-10-10",
+            "amount": 168.12,
+            "description": "H&M",
+            "category": "OTHERS"
+        }],
+        "name": "October"
+    }
+]}

@@ -81,6 +81,7 @@ public class ExpenseTrackerApp extends Print {
             command = command.toLowerCase();
             if (command.equals("save")) {
                 saveTracker();
+                quitMenu = false;
             } else if (command.equals("quit")) {
                 quitMenu = false;
             } else {
@@ -168,13 +169,18 @@ public class ExpenseTrackerApp extends Print {
         } else {
             printBudgetLists();
             System.out.println("Please enter the budget list position number that you would like to remove:");
-            int index = input.nextInt();
-            input.nextLine();
-            if (invalidBudgetListPosition(index)) {
-                System.out.println("Invalid position, please try again.");
-            } else {
-                tracker.remove(tracker.getTrackerBudgetList(index));
-                System.out.println("Removed list at position number " + index);
+            try {
+                int index = input.nextInt();
+                input.nextLine();
+                if (invalidBudgetListPosition(index)) {
+                    System.out.println("Invalid position, please try again.");
+                } else {
+                    tracker.remove(tracker.getTrackerBudgetList(index));
+                    System.out.println("Removed list at position number " + index);
+                }
+            } catch (InputMismatchException e) {
+                input.nextLine();
+                printNotANumberErrorMessage();
             }
         }
         //return to prev screen
@@ -203,6 +209,7 @@ public class ExpenseTrackerApp extends Print {
                     System.out.println("Renamed list at position number " + index);
                 }
             } catch (InputMismatchException e) {
+                input.nextLine();
                 printNotANumberErrorMessage();
             }
         }
@@ -246,6 +253,7 @@ public class ExpenseTrackerApp extends Print {
                 return tracker.getTrackerBudgetList(index);
             }
         } catch (InputMismatchException e) {
+            input.nextLine();
             printNotANumberErrorMessage();
         }
         return null;
@@ -276,6 +284,7 @@ public class ExpenseTrackerApp extends Print {
                 }
             } catch (InputMismatchException e) {
                 printNotANumberErrorMessage();
+                input.nextLine();
                 trackerMenu(tracker);
             }
         }
@@ -331,26 +340,22 @@ public class ExpenseTrackerApp extends Print {
     // MODIFIES: this, budgetList
     // EFFECTS: Add an entry into a budget list
     private void addEntry(BudgetList budgetList, int position) {
-        double amt;
-        String category;
-        String date;
-        String description;
-
         try {
             System.out.println("Please enter the amount spent into the new entry:");
-            amt = input.nextDouble();
+            double amt = input.nextDouble();
             input.nextLine();
             printCategoryCreation();
-            category = input.nextLine();
+            String category = input.nextLine();
             category = category.toLowerCase();
             System.out.println("Please enter the date of the new entry (must be in yyyy-mm-dd format):");
-            date = input.nextLine();
+            String date = input.nextLine();
             System.out.println("(Optional) Please enter a description about the new entry:");
-            description = input.nextLine();
+            String description = input.nextLine();
 
             budgetList.getBudgetList().add(makeEntry(amt, category, date, description));
         } catch (InputMismatchException e) {
             System.out.println("Cannot perform. Please try again.");
+            input.nextLine();
         } catch (NegativeAmountException e) {
             System.out.println("Entry amount cannot be negative.");
         } finally {
@@ -390,6 +395,7 @@ public class ExpenseTrackerApp extends Print {
                 }
             } catch (InputMismatchException e) {
                 printNotANumberErrorMessage();
+                input.nextLine();
             }
 
         }
@@ -450,6 +456,7 @@ public class ExpenseTrackerApp extends Print {
                 }
             } catch (InputMismatchException e) {
                 printNotANumberErrorMessage();
+                input.nextLine();
             }
         }
         //updating the tracker's budget list
@@ -498,6 +505,7 @@ public class ExpenseTrackerApp extends Print {
             input.nextLine();
             System.out.println("Finished editing an entry at position number " + (index + 1));
         } catch (InputMismatchException e) {
+            input.nextLine();
             printNotANumberErrorMessage();
         } catch (NegativeAmountException e) {
             System.out.println("Entry amount cannot be negative or zero.");
