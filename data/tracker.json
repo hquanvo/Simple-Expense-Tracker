@@ -20,7 +20,7 @@
                 "category": "FOOD"
             }
         ],
-        "name": "September"
+        "name": "September 2022"
     },
     {
         "entries": [
@@ -37,6 +37,14 @@
                 "category": "FOOD"
             }
         ],
-        "name": "October"
+        "name": "October 2022"
+    },
+    {
+        "entries": [],
+        "name": "November 2022"
+    },
+    {
+        "entries": [],
+        "name": "December 2022"
     }
 ]}
