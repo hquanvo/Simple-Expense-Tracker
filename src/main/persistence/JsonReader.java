@@ -26,7 +26,7 @@ public class JsonReader {
     }
 
     // EFFECTS: read the tracker and return it (loading the tracker)
-    public Tracker read() throws IOException {
+    public Tracker read() throws IOException, NegativeAmountException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseTracker(jsonObject);
@@ -44,7 +44,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parse Tracker from JSON object and return it
-    private Tracker parseTracker(JSONObject jsonObject) {
+    private Tracker parseTracker(JSONObject jsonObject) throws NegativeAmountException {
         Tracker tracker = new Tracker();
         addBudgetLists(tracker, jsonObject);
         return tracker;
@@ -52,7 +52,7 @@ public class JsonReader {
 
     // MODIFIES: tracker
     // EFFECTS: parse budget lists from JSON object and adds them to the tracker
-    private void addBudgetLists(Tracker tracker, JSONObject jsonObject) {
+    private void addBudgetLists(Tracker tracker, JSONObject jsonObject) throws NegativeAmountException {
         JSONArray jsonArray = jsonObject.getJSONArray("tracker");
         for (Object json : jsonArray) {
             JSONObject nextBudgetList = (JSONObject) json;
@@ -62,7 +62,7 @@ public class JsonReader {
 
     // MODIFIES: tracker, budgetlist
     // EFFECTS: parse budget list from JSON object and adds them to the tracker
-    private void addBudgetList(Tracker tracker, JSONObject jsonObject) {
+    private void addBudgetList(Tracker tracker, JSONObject jsonObject) throws NegativeAmountException {
         String name = jsonObject.getString("name");
         JSONArray jsonArray = jsonObject.getJSONArray("entries");
         BudgetList budgetList = new BudgetList(name);
@@ -75,16 +75,12 @@ public class JsonReader {
 
     // MODIFIES: tracker, budgetList
     // EFFECTS: parse entry from JSON object and adds them to the budget list
-    private void addEntry(BudgetList budgetList, JSONObject jsonObject) {
+    private void addEntry(BudgetList budgetList, JSONObject jsonObject) throws NegativeAmountException {
         Double amount = jsonObject.getDouble("amount");
         Category category = Category.valueOf(jsonObject.getString("category"));
         String date = jsonObject.getString("date");
         String description = jsonObject.getString("description");
-        try {
-            Entry entry = new Entry(amount, date, category, description);
-            budgetList.add(entry);
-        } catch (NegativeAmountException e) {
-            e.printStackTrace();
-        }
+        Entry entry = new Entry(amount, date, category, description);
+        budgetList.add(entry);
     }
 }

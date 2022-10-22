@@ -8,11 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static model.Category.OTHERS;
-import static model.Category.RENT;
+import static model.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
 
+// CITATION: Modeled after JsonWriterTest class in JsonSerializationDemo project provided by CPSC 210 instructors at UBC
 public class JsonWriterTest extends JsonTest {
 
     @Test
@@ -41,6 +40,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(0, tracker.getTrackerSize());
         } catch (IOException e) {
             fail("No exception should've been thrown");
+        } catch (NegativeAmountException e) {
+            fail("Not this exception either");
         }
     }
 
@@ -75,10 +76,9 @@ public class JsonWriterTest extends JsonTest {
             assertTrue(tracker.getTrackerBudgetList(3).isEmptyBudgetList());
 
             checkEntry(tracker.getTrackerBudgetList(2).
-                    getEntryInBudgetList(1), 1.0, OTHERS, "2000-01-01", "");
+                    getEntryInBudgetList(1), testEntry1);
             checkEntry(tracker.getTrackerBudgetList(2).
-                    getEntryInBudgetList(2),
-                    2000.0, RENT, "2003-12-15", "Monthly rent");
+                    getEntryInBudgetList(2), testEntry2);
 
 
         } catch (IOException e) {
