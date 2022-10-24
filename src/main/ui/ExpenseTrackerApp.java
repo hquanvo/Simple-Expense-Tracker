@@ -162,7 +162,8 @@ public class ExpenseTrackerApp extends Print {
 
 
     // MODIFIES: this
-    // EFFECTS: Remove a budget list from the tracker
+    // EFFECTS: Remove a budget list from the tracker, throws InputMismatchException if the input for position number
+    //          is not a number
     private void removeBudgetList() {
         if (tracker.isEmptyTracker()) {
             System.out.println("There is nothing to remove.");
@@ -188,7 +189,8 @@ public class ExpenseTrackerApp extends Print {
     }
 
     // MODIFIES: this
-    // EFFECTS: rename a budget list from the tracker
+    // EFFECTS: rename a budget list from the tracker, throws InputMismatchException if the input for position number
+    //          is not a number
     private void renameBudgetList() {
         if (tracker.isEmptyTracker()) {
             System.out.println("There is nothing to rename.");
@@ -240,7 +242,8 @@ public class ExpenseTrackerApp extends Print {
         trackerMenu(tracker);
     }
 
-    // EFFECTS: Retrieve a budget list to be used in a report
+    // EFFECTS: Retrieve a budget list to be used in a report, throws InputMismatchException if the input for
+    //          position number is not a number
     private BudgetList retrieveBudgetList(String order) {
         printBudgetLists();
         System.out.println("Select the " + order + " budget list by entering its position number.");
@@ -265,7 +268,8 @@ public class ExpenseTrackerApp extends Print {
     }
 
     // MODIFIES: this
-    // EFFECTS: View a budget list in more details
+    // EFFECTS: View a budget list in more details throws InputMismatchException if the input for
+    //          position number is not a number
     private void viewBudgetList() {
         if (tracker.isEmptyTracker()) {
             System.out.println("There is nothing to view.");
@@ -338,7 +342,8 @@ public class ExpenseTrackerApp extends Print {
 
 
     // MODIFIES: this, budgetList
-    // EFFECTS: Add an entry into a budget list
+    // EFFECTS: Add an entry into a budget list, throws InputMismatchException if the input for amount is not a number,
+    //          throws NegativeAmountException if amt <= 0
     private void addEntry(BudgetList budgetList, int position) {
         try {
             System.out.println("Please enter the amount spent into the new entry:");
@@ -377,7 +382,8 @@ public class ExpenseTrackerApp extends Print {
 
 
     // MODIFIES: this, budgetList
-    // EFFECTS: Remove an entry from a budget list
+    // EFFECTS: Remove an entry from a budget list, throws InputMismatchException if the input for position number
+    //          is not a number
     private void removeEntry(BudgetList budgetList, int position) {
         if (budgetList.isEmptyBudgetList()) {
             System.out.println("There is nothing to remove.");
@@ -410,7 +416,7 @@ public class ExpenseTrackerApp extends Print {
 
     // MODIFIES: this
     // EFFECTS: View a summary of the budget list in terms of amount spent on RENT, FOOD, SUPPLIES, BILLS, OTHERS, and
-    //          the TOTAL amount;
+    //          the TOTAL amount
     private void summarizeBudgetList(BudgetList budgetList, int position) {
         ArrayList<Double> summary = budgetList.summarize();
         boolean runLoop = true;
@@ -435,7 +441,7 @@ public class ExpenseTrackerApp extends Print {
 
 
     // MODIFIES: this, budgetList
-    // EFFECTS: Open the edit entry menu
+    // EFFECTS: Open the edit entry menu, throws InputMismatchException if the input for position number is not a number
     private void editEntryMenu(BudgetList budgetList, int position) {
         if (budgetList.isEmptyBudgetList()) {
             System.out.println("There is nothing to edit.");
@@ -496,7 +502,8 @@ public class ExpenseTrackerApp extends Print {
     }
 
     // MODIFIES: this, entry, budgetlist
-    // EFFECTS: Change an entry amount
+    // EFFECTS: Change an entry amount, throws InputMismatchException if the input for position number is not a number,
+    //          throws NegativeAmountException if amt <= 0
     private void editEntryAmount(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter the new amount of money:");
         try {
@@ -515,18 +522,13 @@ public class ExpenseTrackerApp extends Print {
     }
 
     // MODIFIES: this, entry, budgetlist
-    // EFFECTS: Change an entry date
+    // EFFECTS: Change an entry date, defaults to 2000-01-01 if date format invalid
     private void editEntryDate(Entry entry, int index, BudgetList budgetList) {
         System.out.println("Please enter the new date (MUST BE IN yyyy-mm-dd FORMAT)");
         String newDate = input.nextLine();
-        try {
-            entry.setDate(newDate);
-            System.out.println("Finished editing an entry at position number " + (index + 1));
-        } catch (InputMismatchException e) {
-            System.out.println("Cannot perform. Date format invalid.");
-        } finally {
-            updateEntryToList(entry, index, budgetList);
-        }
+        entry.setDate(newDate);
+        System.out.println("Finished editing an entry at position number " + (index + 1));
+        updateEntryToList(entry, index, budgetList);
 
     }
 
