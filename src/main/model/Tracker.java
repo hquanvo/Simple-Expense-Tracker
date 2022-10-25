@@ -67,6 +67,7 @@ public class Tracker {
     // CITATION: toJson and budgetListToJson are based on the code found in JsonSerealizationDemo project provided by
     //          CPSC 210 instructors at UBC
 
+    // EFFECTS: Write information about a tracker as a JSONObject
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("tracker", budgetListToJson());

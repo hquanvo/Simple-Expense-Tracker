@@ -120,6 +120,8 @@ public class Entry implements Writable {
 
     // CITATION: toJson is based on the code found in JsonSerealizationDemo project provided by CPSC 210 instructors
     //            at UBC
+
+    // EFFECTS: Write information about an entry as a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

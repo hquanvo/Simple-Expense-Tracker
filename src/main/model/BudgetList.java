@@ -94,6 +94,8 @@ public class BudgetList implements Writable {
 
     // CITATION: toJson and entriesToJson are based on the code found in JsonSerealizationDemo project provided by
     //           CPSC 210 instructors at UBC
+
+    // EFFECTS: Write information about a budget list as a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
