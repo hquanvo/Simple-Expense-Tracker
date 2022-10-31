@@ -17,7 +17,7 @@ import java.util.Scanner;
 // CITATION: Code related to saving and loading are modeled after the code found in JsonSerializationDemo project
 //           provided by the CPSC 210 instructors at UBC
 //Expense Tracker Application
-public class ExpenseTrackerApp extends Print {
+public class ExpenseTracker extends Print {
     private static final String FILE_LOCATION = "./data/tracker.json";
     private Scanner input; // Enter users' input
     private Tracker tracker; // Tracker
@@ -37,7 +37,7 @@ public class ExpenseTrackerApp extends Print {
     // UBC CPSC 210 instructor team.
 
     // EFFECTS: Run the app
-    public ExpenseTrackerApp() {
+    public ExpenseTracker() {
         initialize();
         welcomeMenu();
     }
