@@ -12,8 +12,6 @@ import ui.button.Button;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -95,9 +93,10 @@ public class MainMenu extends JFrame {
         infoPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT * 2 / 5));
 
 
-        JLabel label = new JLabel("Information panel");
+        JLabel label = new JLabel("Information Panel");
 
-        textArea = new JTextArea("INFORMATION ABOUT THE BUDGET LIST WILL DISPLAY HERE",HEIGHT, 80);
+        textArea = new
+                JTextArea("Press 'Summarize' to receive information about this budget list!",HEIGHT, 80);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -120,12 +119,12 @@ public class MainMenu extends JFrame {
         innerButtonPanel.setBackground(color);
 
         buttons = new ArrayList<>();
-        buttons.add(new AddButton(innerButtonPanel));
-        buttons.add(new RemoveButton(innerButtonPanel));
-        buttons.add(new CompareButton(innerButtonPanel));
-        buttons.add(new SaveButton(innerButtonPanel));
-        buttons.add(new LoadButton(innerButtonPanel));
-        buttons.add(new QuitButton(innerButtonPanel));
+        buttons.add(new AddButton(this, innerButtonPanel));
+        buttons.add(new RemoveButton(this, innerButtonPanel));
+        buttons.add(new SummarizeButton(this, innerButtonPanel));
+        buttons.add(new SaveButton(this, innerButtonPanel));
+        buttons.add(new LoadButton(this, innerButtonPanel));
+        buttons.add(new QuitButton(this, innerButtonPanel));
 
         buttonPanel.add(innerButtonPanel);
         add(buttonPanel, BorderLayout.PAGE_END);
@@ -144,8 +143,11 @@ public class MainMenu extends JFrame {
         }
     }
 
+
+
+
     // EFFECTS: Save the tracker to tracker.json
-    private void saveTracker() {
+    public void saveTracker() {
         try {
             jsonWriter.open();
             jsonWriter.write(tracker);
@@ -169,8 +171,4 @@ public class MainMenu extends JFrame {
             System.out.println("Attempted to read an impossible file, unable to load.");
         }
     }
-
-
-
-
 }

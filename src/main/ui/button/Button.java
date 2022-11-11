@@ -1,5 +1,7 @@
 package ui.button;
 
+import ui.menu.MainMenu;
+
 import javax.swing.*;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
@@ -7,11 +9,14 @@ import java.awt.*;
 public abstract class Button {
 
     protected JButton button;
+    protected MainMenu menu;
 
-    protected Button(String name, JComponent area) {
+    protected Button(MainMenu menu, String name, JComponent area) {
         button = new JButton(name);
         button = customizeButton(button);
         area.add(button);
+        this.menu = menu;
+        addListener();
 
     }
 
@@ -25,4 +30,7 @@ public abstract class Button {
         button.setBackground(Color.getHSBColor(200, 95, 89));
         return button;
     }
+
+    // EFFECTS: add a listener to the button
+    protected abstract void addListener();
 }

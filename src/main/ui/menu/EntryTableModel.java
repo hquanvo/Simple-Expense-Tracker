@@ -57,14 +57,6 @@ public class EntryTableModel extends AbstractTableModel {
         return entryAttribute;
     }
 
-    // EFFECTS: return true if the column is editable, false otherwise
-    public boolean isCellEditable(int row, int col) {
-        if (col == 0 || col == 2) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     // MODIFIES: this
     // EFFECTS: add an entry into the table
