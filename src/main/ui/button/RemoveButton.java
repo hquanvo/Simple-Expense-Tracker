@@ -4,6 +4,7 @@ import ui.menu.MainMenu;
 
 import javax.swing.*;
 
+// Represent a remove button
 public class RemoveButton extends Button {
 
     public RemoveButton(MainMenu menu, JComponent area) {

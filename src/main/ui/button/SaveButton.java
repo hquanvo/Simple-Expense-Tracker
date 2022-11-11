@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a save button
 public class SaveButton extends Button {
 
     public SaveButton(MainMenu menu, JComponent area) {

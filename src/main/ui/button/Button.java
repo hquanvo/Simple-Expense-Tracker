@@ -3,9 +3,10 @@ package ui.button;
 import ui.menu.MainMenu;
 
 import javax.swing.*;
-import javax.swing.text.StyleConstants;
 import java.awt.*;
 
+// CITATION: Button its subclasses' codes are modifies from SimpleDrawingPlayer project provided by UBC CPSC 210
+//           instructor team
 public abstract class Button {
 
     protected JButton button;

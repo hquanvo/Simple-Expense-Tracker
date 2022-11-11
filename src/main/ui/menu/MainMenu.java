@@ -13,13 +13,16 @@ import ui.button.Button;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 // Represent the main menu, the first menu that the user will encounter
-// CITATION: Various methods in this class
+// CITATION: Various methods in this class are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
+//           instructor team or from Java Swing tutorial provided by Oracle
 public class MainMenu extends JFrame {
     private static final String FILE_LOCATION = "./data/tracker.json";
     protected static final int WIDTH = 1000;
@@ -28,6 +31,7 @@ public class MainMenu extends JFrame {
     private Tracker tracker; // Tracker
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private BudgetList data;
 
     private JTable table;
     private JTextArea textArea;
@@ -54,16 +58,28 @@ public class MainMenu extends JFrame {
     private void initializeGraphics() {
         setSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int a = JOptionPane.showConfirmDialog(table, "Do you want to save?");
+                if (a == 0) {
+                    saveTracker();
+                    System.exit(0);
+                } else if (a == 1) {
+                    System.exit(0);
+                }
+                // do nothing if cancel was chosen
+            }
+        });
         setResizable(false);
 
         initializeTablePanel();
         initializeInfoPanel();
         initializeButtons();
-        pack();
         setVisible(true);
         revalidate();
-
+        repaint();
     }
 
     // MODIFIES: this
@@ -134,8 +150,8 @@ public class MainMenu extends JFrame {
     // EFFECTS: Initialize the data by loading the data in, default to the first budget list in the save file
     private void initializeData() {
         loadTracker();
-        BudgetList budgetList = tracker.getTrackerBudgetList(1);
-        ArrayList<Entry> entries = budgetList.getBudgetList();
+        data = tracker.getTrackerBudgetList(1);
+        ArrayList<Entry> entries = data.getBudgetList();
         EntryTableModel model = (EntryTableModel) table.getModel();
 
         for (Entry entry : entries) {
@@ -143,7 +159,34 @@ public class MainMenu extends JFrame {
         }
     }
 
+    // getters
+    public Tracker getTracker() {
+        return tracker;
+    }
 
+    public BudgetList getData() {
+        return data;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
+    public List<Button> getButtons() {
+        return buttons;
+    }
+
+    public int getHeight() {
+        return HEIGHT;
+    }
+
+    public  int getWidth() {
+        return WIDTH;
+    }
 
 
     // EFFECTS: Save the tracker to tracker.json
