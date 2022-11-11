@@ -1,12 +1,22 @@
 package ui.menu;
 
+import exceptions.NegativeAmountException;
+import model.BudgetList;
+import model.Entry;
+import model.Tracker;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 import ui.button.*;
 import ui.button.Button;
 
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -17,13 +27,28 @@ public class MainMenu extends JFrame {
     protected static final int WIDTH = 1000;
     protected static final int HEIGHT = 800;
 
+    private Tracker tracker; // Tracker
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
+    private JTable table;
+    private JTextArea textArea;
     private List<Button> buttons;
 
     public MainMenu() {
         super("Expense Tracker");
+        initializeTracker();
         initializeGraphics();
+        initializeData();
 
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Initialize the tracker
+    private void initializeTracker() {
+        tracker = new Tracker();
+        jsonWriter = new JsonWriter(FILE_LOCATION);
+        jsonReader = new JsonReader(FILE_LOCATION);
     }
 
     // MODIFIES: this
@@ -44,27 +69,41 @@ public class MainMenu extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: Creates panels and format them onto the frame
+    // EFFECTS: Creates the Table Panel and add them onto the frame
     private void initializeTablePanel() {
-        // dummy data for testing, will be deleted later
-        String data[][]={ {"2022-09-01","1300","RENT", "Monthly Rent"},
-                {"2022-09-01","1300","RENT", "Monthly Rent"},
-                {"2022-09-01","1300","RENT", "Monthly Rent"}};
-        String column[]={"DATE","AMOUNT","CATEGORY", "DESCRIPTION"};
-        JTable listPanel = new JTable(data, column);
-        JScrollPane scrollPanel = new JScrollPane(listPanel);
-        listPanel.setBackground(Color.gray);
-        listPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT / 2));
+        JLabel label = new JLabel("Tracker Table");
+        JPanel listPanel = new JPanel(new BorderLayout());
+
+        table = new JTable(new EntryTableModel());
+        table.setBackground(Color.white);
+        table.setPreferredSize(new Dimension(WIDTH, HEIGHT / 2));
+
+        JScrollPane scrollPanel = new JScrollPane(table);
         scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        add(scrollPanel, BorderLayout.PAGE_START);
-        validate();
+
+        listPanel.add(label, BorderLayout.NORTH);
+        listPanel.add(scrollPanel);
+        add(listPanel, BorderLayout.PAGE_START);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Create the Info Panel and add it onto the frame
     private void initializeInfoPanel() {
-        JPanel infoPanel = new JPanel();
+        JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(Color.lightGray);
         infoPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT * 2 / 5));
+
+
+        JLabel label = new JLabel("Information panel");
+
+        textArea = new JTextArea("INFORMATION ABOUT THE BUDGET LIST WILL DISPLAY HERE",HEIGHT, 80);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        infoPanel.add(label, BorderLayout.NORTH);
+        infoPanel.add(textArea);
+
         add(infoPanel, BorderLayout.CENTER);
     }
 
@@ -91,4 +130,47 @@ public class MainMenu extends JFrame {
         buttonPanel.add(innerButtonPanel);
         add(buttonPanel, BorderLayout.PAGE_END);
     }
+
+    // MODIFIES: this
+    // EFFECTS: Initialize the data by loading the data in, default to the first budget list in the save file
+    private void initializeData() {
+        loadTracker();
+        BudgetList budgetList = tracker.getTrackerBudgetList(1);
+        ArrayList<Entry> entries = budgetList.getBudgetList();
+        EntryTableModel model = (EntryTableModel) table.getModel();
+
+        for (Entry entry : entries) {
+            model.addEntry(entry);
+        }
+    }
+
+    // EFFECTS: Save the tracker to tracker.json
+    private void saveTracker() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(tracker);
+            jsonWriter.close();
+            System.out.println("All budget lists in the tracker has been successfully saved to " + FILE_LOCATION);
+        } catch (FileNotFoundException e) {
+            System.out.println("Saving failed, unable to write to " + FILE_LOCATION);
+
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Loads the tracker from tracker.json
+    private void loadTracker() {
+        try {
+            tracker = jsonReader.read();
+            System.out.println("All budget lists successfully loaded from " + FILE_LOCATION);
+        } catch (IOException e) {
+            System.out.println("Unable to load budget lists from " + FILE_LOCATION);
+        } catch (NegativeAmountException e) {
+            System.out.println("Attempted to read an impossible file, unable to load.");
+        }
+    }
+
+
+
+
 }
