@@ -95,7 +95,7 @@ public class TrackerTest {
         otherList.add(testList1);
         otherList.add(testList2);
 
-        assertEquals(otherList, tracker.getTracker());
+        assertEquals(otherList, tracker.getBudgetLists());
         assertEquals(2, tracker.getTrackerSize());
         tracker.remove(testList1);
         assertEquals(1, tracker.getTrackerSize());

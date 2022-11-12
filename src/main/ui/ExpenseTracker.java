@@ -114,7 +114,7 @@ public class ExpenseTracker extends Print {
     private void printBudgetLists() {
         System.out.println("Here are the current budget lists:");
         int index = 1;
-        for (BudgetList budgetList : tracker.getTracker()) {
+        for (BudgetList budgetList : tracker.getBudgetLists()) {
             System.out.println(index + ". " + budgetList.getName());
             index++;
         }
@@ -332,7 +332,7 @@ public class ExpenseTracker extends Print {
                 summarizeBudgetList(budgetList, position);
                 break;
             case "return":
-                tracker.getTracker().set(position, budgetList);
+                tracker.getBudgetLists().set(position, budgetList);
                 trackerMenu(tracker);
                 break;
             default:
@@ -435,7 +435,7 @@ public class ExpenseTracker extends Print {
     // MODIFIES: this
     // EFFECTS: Update the tracker's list of budget list before returning to the budget list menu.
     private void updateAndReturn(BudgetList budgetList, int position) {
-        tracker.getTracker().set(position, budgetList);
+        tracker.getBudgetLists().set(position, budgetList);
         budgetListMenu(budgetList, position);
     }
 

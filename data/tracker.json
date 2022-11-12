@@ -14,10 +14,10 @@
                 "category": "SUPPLIES"
             },
             {
-                "date": "2022-09-11",
-                "amount": 15.74,
+                "date": "2022-09-10",
+                "amount": 12,
                 "description": "Sesame",
-                "category": "FOOD"
+                "category": "OTHERS"
             }
         ],
         "name": "September 2022"

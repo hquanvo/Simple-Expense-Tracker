@@ -49,7 +49,7 @@ public class Tracker {
 
     //getters
 
-    public ArrayList<BudgetList> getTracker() {
+    public ArrayList<BudgetList> getBudgetLists() {
         return tracker;
     }
 

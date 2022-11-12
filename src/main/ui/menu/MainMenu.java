@@ -12,6 +12,8 @@ import ui.button.Button;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,7 +24,7 @@ import java.util.List;
 
 // Represent the main menu, the first menu that the user will encounter
 // CITATION: Various methods in this class are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
-//           instructor team or from Java Swing tutorial provided by Oracle
+//           instructor team
 public class MainMenu extends JFrame {
     private static final String FILE_LOCATION = "./data/tracker.json";
     protected static final int WIDTH = 1000;
@@ -31,7 +33,9 @@ public class MainMenu extends JFrame {
     private Tracker tracker; // Tracker
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
-    private BudgetList data;
+    private Vector<Vector<String>> data;
+    private Vector<String> columnNames;
+    private BudgetList currentList;
 
     private JTable table;
     private JTextArea textArea;
@@ -39,18 +43,30 @@ public class MainMenu extends JFrame {
 
     public MainMenu() {
         super("Expense Tracker");
-        initializeTracker();
+        initializeFields();
+        // TODO: ADD A STARTUP SPLASH SCREEN
         initializeGraphics();
         initializeData();
 
     }
 
     // MODIFIES: this
-    // EFFECTS: Initialize the tracker
-    private void initializeTracker() {
+    // EFFECTS: Initialize the fields
+    private void initializeFields() {
         tracker = new Tracker();
         jsonWriter = new JsonWriter(FILE_LOCATION);
         jsonReader = new JsonReader(FILE_LOCATION);
+
+        columnNames = new Vector<>();
+        columnNames.addElement("ID");
+        columnNames.addElement("DATE");
+        columnNames.addElement("AMOUNT");
+        columnNames.addElement("CATEGORY");
+        columnNames.addElement("DESCRIPTION");
+
+        data = new Vector<>();
+
+        currentList = null;
     }
 
     // MODIFIES: this
@@ -88,9 +104,15 @@ public class MainMenu extends JFrame {
         JLabel label = new JLabel("Tracker Table");
         JPanel listPanel = new JPanel(new BorderLayout());
 
-        table = new JTable(new EntryTableModel());
-        table.setBackground(Color.white);
-        table.setPreferredSize(new Dimension(WIDTH, HEIGHT / 2));
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        table = new JTable(tableModel);
+        customizeTable();
 
         JScrollPane scrollPanel = new JScrollPane(table);
         scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -99,6 +121,22 @@ public class MainMenu extends JFrame {
         listPanel.add(label, BorderLayout.NORTH);
         listPanel.add(scrollPanel);
         add(listPanel, BorderLayout.PAGE_START);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: customize the look of the table
+    private void customizeTable() {
+        table.setBackground(Color.white);
+        table.setPreferredSize(new Dimension(WIDTH, HEIGHT / 2));
+        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
+        TableColumnModel columnModel = table.getColumnModel();
+
+        columnModel.getColumn(0).setPreferredWidth(WIDTH / 12);
+        columnModel.getColumn(1).setPreferredWidth(WIDTH / 6);
+        columnModel.getColumn(2).setPreferredWidth(WIDTH / 6);
+        columnModel.getColumn(3).setPreferredWidth(WIDTH / 6);
+        columnModel.getColumn(4).setPreferredWidth(WIDTH * 5 / 12);
     }
 
     // MODIFIES: this
@@ -111,8 +149,7 @@ public class MainMenu extends JFrame {
 
         JLabel label = new JLabel("Information Panel");
 
-        textArea = new
-                JTextArea("Press 'Summarize' to receive information about this budget list!",HEIGHT, 80);
+        textArea = new JTextArea(HEIGHT, 80);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -147,16 +184,33 @@ public class MainMenu extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: Initialize the data by loading the data in, default to the first budget list in the save file
+    // EFFECTS: Initialize the data by loading the data in, default to the first budget list in the save file if save
+    //          file is not empty.
     private void initializeData() {
         loadTracker();
-        data = tracker.getTrackerBudgetList(1);
-        ArrayList<Entry> entries = data.getBudgetList();
-        EntryTableModel model = (EntryTableModel) table.getModel();
-
-        for (Entry entry : entries) {
-            model.addEntry(entry);
+        if (tracker.getTrackerSize() == 0) {
+            textArea.setText("There is no budget list to show here. Press 'Add' to make a new one!");
+        } else {
+            currentList = tracker.getTrackerBudgetList(1);
+            ArrayList<Entry> entries = currentList.getBudgetList();
+            for (Entry entry : entries) {
+                Vector<String> row = new Vector<>();
+                addToTable(entry, row);
+            }
+            textArea.setText("Currently showing data from " + currentList.getName() + " budget list."
+                    + " Press 'Summarize' to receive information about this budget list!");
         }
+    }
+
+    // MODIFIES: this, row
+    // EFFECTS: Add a row into the budget list table
+    public void addToTable(Entry entry, Vector<String> row) {
+        row.addElement(data.size() + 1 + "");
+        row.addElement(entry.getDate());
+        row.addElement("$" + entry.getAmount());
+        row.addElement(String.valueOf(entry.getCategory()));
+        row.addElement(entry.getDescription());
+        data.addElement(row);
     }
 
     // getters
@@ -164,7 +218,7 @@ public class MainMenu extends JFrame {
         return tracker;
     }
 
-    public BudgetList getData() {
+    public Vector<Vector<String>> getData() {
         return data;
     }
 
@@ -188,6 +242,9 @@ public class MainMenu extends JFrame {
         return WIDTH;
     }
 
+    public BudgetList getCurrentList() {
+        return currentList;
+    }
 
     // EFFECTS: Save the tracker to tracker.json
     public void saveTracker() {
@@ -195,6 +252,7 @@ public class MainMenu extends JFrame {
             jsonWriter.open();
             jsonWriter.write(tracker);
             jsonWriter.close();
+            textArea.setText("All budget lists in the tracker has been successfully saved to " + FILE_LOCATION + ".");
             System.out.println("All budget lists in the tracker has been successfully saved to " + FILE_LOCATION);
         } catch (FileNotFoundException e) {
             System.out.println("Saving failed, unable to write to " + FILE_LOCATION);

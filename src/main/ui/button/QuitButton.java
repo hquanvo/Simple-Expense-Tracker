@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 // Represent a quit button, prompts the user if they want to save before exiting
 public class QuitButton extends Button {
 
+    // EFFECTS: Create a quit button and add it onto the JComponent area
     public QuitButton(MainMenu menu, JComponent area) {
         super(menu,"Quit", area);
     }
@@ -18,6 +19,13 @@ public class QuitButton extends Button {
     @Override
     protected void addListener() {
         button.addActionListener(new QuitButtonClickHandler());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the tooltip of the button when hovering a mouse over it
+    @Override
+    protected void setTooltip() {
+        button.setToolTipText("Quit the app");
     }
 
     private class QuitButtonClickHandler implements ActionListener {
