@@ -5,7 +5,7 @@ import ui.menu.MainMenu;
 import javax.swing.*;
 import java.awt.*;
 
-// CITATION: Button its subclasses' codes are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
+// CITATION: Button and its subclasses' codes are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
 //           instructor team
 public abstract class Button {
 
@@ -34,9 +34,9 @@ public abstract class Button {
         return button;
     }
 
-    // EFFECTS: add a listener to the button
+    // EFFECTS: Add a listener to the button
     protected abstract void addListener();
 
-    // EFFECTS: set the tooltip of the button when hovering a mouse over it
+    // EFFECTS: Set the tooltip of the button when hovering a mouse over it
     protected abstract void setTooltip();
 }

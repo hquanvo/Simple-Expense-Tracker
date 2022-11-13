@@ -15,14 +15,14 @@ public class QuitButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS: associate button with new ClickHandler
+    // EFFECTS: Associate button with new ClickHandler
     @Override
     protected void addListener() {
         button.addActionListener(new QuitButtonClickHandler());
     }
 
     // MODIFIES: this
-    // EFFECTS: set the tooltip of the button when hovering a mouse over it
+    // EFFECTS: Set the tooltip of the button when hovering a mouse over it
     @Override
     protected void setTooltip() {
         button.setToolTipText("Quit the app");
@@ -30,10 +30,10 @@ public class QuitButton extends Button {
 
     private class QuitButtonClickHandler implements ActionListener {
 
-        // EFFECTS: Exit the app by pressing the button
+        // EFFECTS: Exit the app
         @Override
         public void actionPerformed(ActionEvent e) {
-            int a = JOptionPane.showConfirmDialog(menu, "Do you want to save?");
+            int a = JOptionPane.showConfirmDialog(menu, "Would you like to save the tracker?");
             if (a == 0) {
                 menu.saveTracker();
                 System.exit(0);

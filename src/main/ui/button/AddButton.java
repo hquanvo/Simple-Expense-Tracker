@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Represent an add button and its functionalities
+// Represent an add button, allowing user to add a new entry or budget list
 public class AddButton extends Button {
 
     // EFFECTS: Creates an add button and add it onto the JComponent area
@@ -16,14 +16,14 @@ public class AddButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS: associate button with new ClickHandler
+    // EFFECTS: Associate button with new ClickHandler
     @Override
     protected void addListener() {
         button.addActionListener(new AddButtonClickHandler());
     }
 
     // MODIFIES: this
-    // EFFECTS: set the tooltip of the button when hovering a mouse over it
+    // EFFECTS: Set the tooltip of the button when hovering a mouse over it
     @Override
     protected void setTooltip() {
         button.setToolTipText("Add an entry to this budget list, or make a new budget list to the tracker");

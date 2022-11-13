@@ -6,21 +6,26 @@ import model.Tracker;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-// Represents a remove menu that can remove a entry or remove a budget list
+// Represents a remove menu that can remove an entry or remove a budget list
 public class RemoveMenu {
 
     // EFFECTS: Creates prompt for a remove selection
     public RemoveMenu(MainMenu menu) {
+        if (menu.getTracker().getTrackerSize() == 0) {
+            JOptionPane.showMessageDialog(menu,
+                    "There is nothing to remove.");
+            return;
+        }
         Object[] options = {"Remove an existing entry", "Remove an existing budget list", "Cancel"};
         int choice = JOptionPane.showOptionDialog(menu, "Which of the following would you like to remove?",
                 "Remove", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[2]);
         switch (choice) {
             case (0):
-                if (menu.getTracker().getTrackerSize() == 0) {
+                if (menu.getCurrentList().isEmptyBudgetList()) {
                     JOptionPane.showMessageDialog(menu,
-                            "There is no budget list to add to, please make one first.");
+                            "There is no entry to remove in this budget list.");
                 } else {
-                    removeEntry(menu);
+                    removeEntryMenu(menu);
                 }
                 break;
 
@@ -33,24 +38,21 @@ public class RemoveMenu {
     }
 
     // MODIFIES: menu
-    // EFFECTS: remove an entry from the menu
-    private void removeEntry(MainMenu menu) {
+    // EFFECTS: Creates a remove entry prompt that remove an entry from the current budget list
+    private void removeEntryMenu(MainMenu menu) {
         BudgetList currList = menu.getCurrentList();
-        if (currList.isEmptyBudgetList()) {
-            JOptionPane.showMessageDialog(menu,"There is nothing to remove.");
-        } else {
-            Integer[] options = new Integer[currList.getBudgetListSize()];
-            int counter = 1;
-            for (int i = 0; i < options.length; i++) {
-                options[i] = counter;
-                counter++;
-            }
-            Integer choice = (Integer) JOptionPane.showInputDialog(menu,
+        Integer[] options = new Integer[currList.getBudgetListSize()];
+        int counter = 1;
+        for (int i = 0; i < options.length; i++) {
+            options[i] = counter;
+            counter++;
+        }
+        Integer choice = (Integer) JOptionPane.showInputDialog(menu,
                     "Select the ID number of the entry that you would like to remove:",
                     "Remove", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            updateEntryRemovalToTracker(menu, choice - 1);
+        updateEntryRemovalToTracker(menu, choice - 1);
 
-        }
+
     }
 
     // REQUIRES: The current budget list must not be null

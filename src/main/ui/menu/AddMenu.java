@@ -23,7 +23,7 @@ public class AddMenu {
                     JOptionPane.showMessageDialog(menu,
                             "There is no budget list to add to, please make one first.");
                 } else {
-                    addEntry(menu);
+                    addEntryMenu(menu);
                 }
                 break;
 
@@ -36,8 +36,8 @@ public class AddMenu {
     }
 
     // MODIFIES: menu
-    // EFFECTS: add an entry into the menu
-    private void addEntry(MainMenu menu) {
+    // EFFECTS: Creates the add entry prompt that adds an entry into the current budget list
+    private void addEntryMenu(MainMenu menu) {
         String date = enterDatePrompt(menu);
         double amt = 0.0;
         try {

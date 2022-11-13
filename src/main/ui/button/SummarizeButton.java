@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-// Represent a summarize button and its functionalities
+// Represent a summarize button, allowing user to summarize some information about the current budget list
 public class SummarizeButton extends Button {
 
     // EFFECTS: Create a summarize button and add it onto the JComponent area
@@ -16,14 +16,14 @@ public class SummarizeButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS: associate button with a new ClickHandler
+    // EFFECTS: Associate button with a new ClickHandler
     @Override
     protected void addListener() {
         button.addActionListener(new SummarizeButtonClickHandler());
     }
 
     // MODIFIES: this
-    // EFFECTS: set the tooltip of the button when hovering a mouse over it
+    // EFFECTS: Set the tooltip of the button when hovering a mouse over it
     @Override
     protected void setTooltip() {
         button.setToolTipText("Generate and display a quick summary of the budget list onto the information panel");
