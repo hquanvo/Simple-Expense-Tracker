@@ -31,6 +31,7 @@ public class AddButton extends Button {
 
     private class AddButtonClickHandler implements ActionListener {
 
+        // MODIFIES: this
         // EFFECTS: Create the add menu that many operations can be performed on
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -29,6 +29,7 @@ public class RemoveButton extends Button {
 
     private class RemoveButtonClickHandler implements ActionListener {
 
+        // MODIFIES: this
         // EFFECTS: Create the remove menu that many operations can be performed on
         @Override
         public void actionPerformed(ActionEvent e) {

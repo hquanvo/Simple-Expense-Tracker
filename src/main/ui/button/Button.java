@@ -30,7 +30,7 @@ public abstract class Button {
         button.setFocusPainted(true);
         button.setContentAreaFilled(true);
         button.setPreferredSize(new Dimension(150, 60));
-        button.setBackground(Color.getHSBColor(200, 95, 89));
+        button.setBackground(new Color(227,227,227));
         return button;
     }
 

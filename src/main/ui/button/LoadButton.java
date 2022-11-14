@@ -1,8 +1,13 @@
 package ui.button;
 
+import model.BudgetList;
+import model.Tracker;
+import ui.menu.LoadMenu;
 import ui.menu.MainMenu;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // Represent a load button, allowing user to load a different budget list onto the tracker
 public class LoadButton extends Button {
@@ -12,9 +17,11 @@ public class LoadButton extends Button {
         super(menu,"Load", area);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Associate button with a new ClickHandler
     @Override
     protected void addListener() {
-
+        button.addActionListener(new LoadButtonClickHandler());
     }
 
     // MODIFIES: this
@@ -22,5 +29,16 @@ public class LoadButton extends Button {
     @Override
     protected void setTooltip() {
         button.setToolTipText("Load a budget list to display");
+    }
+
+    private class LoadButtonClickHandler implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: Create a load prompt to load a different budget list into the menu
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new LoadMenu(menu);
+
+        }
     }
 }

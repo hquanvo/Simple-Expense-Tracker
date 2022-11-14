@@ -33,7 +33,7 @@ public class QuitButton extends Button {
         // EFFECTS: Exit the app
         @Override
         public void actionPerformed(ActionEvent e) {
-            int a = JOptionPane.showConfirmDialog(menu, "Would you like to save the tracker?");
+            int a = menu.showSaveOption();
             if (a == 0) {
                 menu.saveTracker();
                 System.exit(0);

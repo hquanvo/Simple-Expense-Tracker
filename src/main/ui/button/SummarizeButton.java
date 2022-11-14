@@ -54,15 +54,20 @@ public class SummarizeButton extends Button {
         // EFFECTS: Print a summary on the info panel about the budget list
         @Override
         public void actionPerformed(ActionEvent e) {
-            ArrayList<Double> summary = menu.getCurrentList().summarize();
-            JTextArea textArea = menu.getTextArea();
-            StringBuilder msg = new StringBuilder("In summary: \n");
-            for (int i = 1; i <= 6; i++) {
-                Double amt = summary.get(i - 1);
-                msg.append(printSummaryMessage(amt, i));
+            if (menu.getTracker().getBudgetLists().size() > 0) {
+                ArrayList<Double> summary = menu.getCurrentList().summarize();
+                JTextArea textArea = menu.getTextArea();
+                StringBuilder msg = new StringBuilder("In summary: \n");
+                for (int i = 1; i <= 6; i++) {
+                    Double amt = summary.get(i - 1);
+                    msg.append(printSummaryMessage(amt, i));
+                }
+                String message = msg.toString();
+                textArea.setText(message);
+            } else {
+                JOptionPane.showMessageDialog(menu,
+                        "There is no budget list to summarize.");
             }
-            String message = msg.toString();
-            textArea.setText(message);
         }
     }
 }

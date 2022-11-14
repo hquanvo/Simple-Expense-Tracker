@@ -6,9 +6,8 @@ import model.Entry;
 import model.Tracker;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.button.*;
 import ui.button.Button;
-
+import ui.button.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,8 +18,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 // Represent the main menu, the first menu that the user will encounter
 // CITATION: Various methods in this class are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
@@ -78,7 +78,7 @@ public class MainMenu extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                int a = JOptionPane.showConfirmDialog(table, "Do you want to save?");
+                int a = showSaveOption();
                 if (a == 0) {
                     saveTracker();
                     System.exit(0);
@@ -96,6 +96,11 @@ public class MainMenu extends JFrame {
         setVisible(true);
         revalidate();
         repaint();
+    }
+
+    // EFFECT: Show the save options to the user, and return the user's selection
+    public int showSaveOption() {
+        return JOptionPane.showConfirmDialog(this, "Would you like to save the tracker?");
     }
 
     // MODIFIES: this
@@ -162,7 +167,7 @@ public class MainMenu extends JFrame {
     // MODIFIES: this
     // EFFECTS: Create buttons and add them onto buttonPanel;
     private void initializeButtons() {
-        Color color = Color.CYAN;
+        Color color = new Color(107,107,107);
         JPanel buttonPanel = new JPanel(new BorderLayout(10, 10));
         buttonPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
         buttonPanel.setBackground(color);
@@ -197,9 +202,14 @@ public class MainMenu extends JFrame {
                 Vector<String> row = new Vector<>();
                 addToTable(entry, row);
             }
-            textArea.setText("Currently showing data from " + currentList.getName() + " budget list."
-                    + " Press 'Summarize' to receive information about this budget list!");
+            displayStandardTextAreaMessage(currentList);
         }
+    }
+
+    // EFFECTS: Display the standard text message when a budget list is currently loaded in
+    public void displayStandardTextAreaMessage(BudgetList budgetList) {
+        textArea.setText("Currently showing data from " + budgetList.getName() + " budget list."
+                + " Press 'Summarize' to receive information about this budget list!");
     }
 
     // MODIFIES: this, row
@@ -211,6 +221,32 @@ public class MainMenu extends JFrame {
         row.addElement(String.valueOf(entry.getCategory()));
         row.addElement(entry.getDescription());
         data.addElement(row);
+    }
+
+    // EFFECTS: Show the message indicating that the process has been stopped when pressing the close button
+    public void showAbortMessage() {
+        JOptionPane.showMessageDialog(this,
+                "Process aborted.", "Error", JOptionPane.WARNING_MESSAGE);
+    }
+
+    // REQUIRES: chosenName must be a name of an existing budget list in budgetLists
+    // MODIFIES: menu
+    // EFFECTS: Load a budget list onto the menu, changing which entries are displayed in the table
+    public void loadBudgetList(String choosenName, ArrayList<BudgetList> budgetLists) {
+        for (BudgetList budgetList : budgetLists) {
+            if (choosenName.equals(budgetList.getName())) {
+                currentList = budgetList;
+                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                tableModel.getDataVector().removeAllElements();
+                ArrayList<Entry> entries = currentList.getBudgetList();
+                for (Entry entry : entries) {
+                    Vector<String> row = new Vector<>();
+                    addToTable(entry, row);
+                }
+                displayStandardTextAreaMessage(currentList);
+                repaint();
+            }
+        }
     }
 
     // getters
@@ -238,7 +274,7 @@ public class MainMenu extends JFrame {
         return HEIGHT;
     }
 
-    public  int getWidth() {
+    public int getWidth() {
         return WIDTH;
     }
 
