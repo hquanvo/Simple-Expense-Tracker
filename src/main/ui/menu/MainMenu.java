@@ -47,6 +47,8 @@ public class MainMenu extends JFrame {
         initializeFields();
         makeSplashScreen();
         initializeGraphics();
+        loadData();
+        repaint();
     }
 
     // MODIFIES: this
@@ -115,7 +117,6 @@ public class MainMenu extends JFrame {
         initializeTablePanel();
         initializeInfoPanel();
         initializeButtons();
-        loadData();
         setVisible(true);
         revalidate();
         repaint();

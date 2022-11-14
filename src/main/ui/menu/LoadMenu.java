@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class LoadMenu {
 
     // MODIFIES: menu
-    // EFFECTS: Create a load menu that user can choose to load the state of the tracker or a different budget list
+    // EFFECTS: Create a load menu that user can choose to load a different budget list
     public LoadMenu(MainMenu menu) {
         loadBudgetListMenu(menu);
     }
