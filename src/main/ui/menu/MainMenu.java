@@ -29,6 +29,7 @@ public class MainMenu extends JFrame {
     private static final String FILE_LOCATION = "./data/tracker.json";
     protected static final int WIDTH = 1000;
     protected static final int HEIGHT = 800;
+    private static final ImageIcon ICON = new ImageIcon("./src/main/ui/image/welcome.jpg");
 
     private Tracker tracker; // Tracker
     private JsonReader jsonReader;
@@ -44,10 +45,32 @@ public class MainMenu extends JFrame {
     public MainMenu() {
         super("Expense Tracker");
         initializeFields();
-        // TODO: ADD A STARTUP SPLASH SCREEN
+        makeSplashScreen();
         initializeGraphics();
-        initializeData();
 
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Display a splash screen
+    private void makeSplashScreen() {
+        JWindow splashScreen = new JWindow();
+        splashScreen.setLayout(new BorderLayout());
+        JLabel message = new JLabel("Now loading......");
+        message.setFont(new Font("Helvetica", Font.BOLD, 20));
+        JLabel image = new JLabel("", ICON, SwingConstants.CENTER);
+        splashScreen.add(message, BorderLayout.NORTH);
+        splashScreen.add(image, BorderLayout.CENTER);
+        splashScreen.setBounds(WIDTH / 3, HEIGHT / 3, ICON.getIconWidth(),
+                ICON.getIconHeight() + message.getHeight());
+
+        splashScreen.setVisible(true);
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            JOptionPane.showMessageDialog(this,
+                    e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        splashScreen.setVisible(false);
     }
 
     // MODIFIES: this
@@ -158,6 +181,7 @@ public class MainMenu extends JFrame {
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        textArea.setText("There is no budget list to show here. Press 'Add' to make a new one!");
         infoPanel.add(label, BorderLayout.NORTH);
         infoPanel.add(textArea);
 
@@ -167,7 +191,7 @@ public class MainMenu extends JFrame {
     // MODIFIES: this
     // EFFECTS: Create buttons and add them onto buttonPanel;
     private void initializeButtons() {
-        Color color = new Color(107,107,107);
+        Color color = new Color(107, 107, 107);
         JPanel buttonPanel = new JPanel(new BorderLayout(10, 10));
         buttonPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
         buttonPanel.setBackground(color);
@@ -189,13 +213,10 @@ public class MainMenu extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: Initialize the data by loading the data in, default to the first budget list in the save file if save
-    //          file is not empty.
-    private void initializeData() {
+    // EFFECTS: Loading the data in, default to the first budget list in the save file if save file is not empty.
+    public void loadData() {
         loadTracker();
-        if (tracker.getTrackerSize() == 0) {
-            textArea.setText("There is no budget list to show here. Press 'Add' to make a new one!");
-        } else {
+        if (tracker.getTrackerSize() > 0) {
             currentList = tracker.getTrackerBudgetList(1);
             ArrayList<Entry> entries = currentList.getBudgetList();
             for (Entry entry : entries) {
@@ -230,7 +251,7 @@ public class MainMenu extends JFrame {
     }
 
     // REQUIRES: chosenName must be a name of an existing budget list in budgetLists
-    // MODIFIES: menu
+    // MODIFIES: this
     // EFFECTS: Load a budget list onto the menu, changing which entries are displayed in the table
     public void loadBudgetList(String choosenName, ArrayList<BudgetList> budgetLists) {
         for (BudgetList budgetList : budgetLists) {
@@ -289,9 +310,8 @@ public class MainMenu extends JFrame {
             jsonWriter.write(tracker);
             jsonWriter.close();
             textArea.setText("All budget lists in the tracker has been successfully saved to " + FILE_LOCATION + ".");
-            System.out.println("All budget lists in the tracker has been successfully saved to " + FILE_LOCATION);
         } catch (FileNotFoundException e) {
-            System.out.println("Saving failed, unable to write to " + FILE_LOCATION);
+            textArea.setText("Saving failed, unable to write to " + FILE_LOCATION);
 
         }
     }
@@ -301,11 +321,12 @@ public class MainMenu extends JFrame {
     private void loadTracker() {
         try {
             tracker = jsonReader.read();
-            System.out.println("All budget lists successfully loaded from " + FILE_LOCATION);
+            JOptionPane.showMessageDialog(this,
+                    "All budget lists successfully loaded.");
         } catch (IOException e) {
-            System.out.println("Unable to load budget lists from " + FILE_LOCATION);
+            textArea.setText("Unable to load budget lists from " + FILE_LOCATION);
         } catch (NegativeAmountException e) {
-            System.out.println("Attempted to read an impossible file, unable to load.");
+            textArea.setText("Attempted to read an impossible file, unable to load.");
         }
     }
 }

@@ -97,9 +97,8 @@ public class RemoveMenu {
             options[i] = budgetLists.get(i).getName();
         }
 
-        String choice = (String) JOptionPane.showInputDialog(menu,
-                "Select the budget list that you would like to remove:",
-                "Remove", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String choice = (String) JOptionPane.showInputDialog(menu, "Select the budget list that you would like "
+                        + "to remove:", "Remove", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if (choice == null) {
             menu.showAbortMessage();
             return;
@@ -109,13 +108,19 @@ public class RemoveMenu {
         if (confirm == 0) {
             budgetLists.removeIf(budgetList -> choice.equals(budgetList.getName()));
             if (menu.getCurrentList().getName().equals(choice)) {
-                if (budgetLists.size() >= 1) {
-                    menu.loadBudgetList(budgetLists.get(0).getName(), budgetLists);
-                } else {
-                    menu.getTextArea().setText("There is no budget list to show here. Press 'Add' to make a new one!");
-                }
+                loadDifferentListPostRemoval(menu, budgetLists);
 
             }
+        }
+    }
+
+    // MODIFIES: menu
+    // EFFECTS: Load in the next budget list if the current displaying list was removed by the user
+    private void loadDifferentListPostRemoval(MainMenu menu, ArrayList<BudgetList> budgetLists) {
+        if (budgetLists.size() >= 1) {
+            menu.loadBudgetList(budgetLists.get(0).getName(), budgetLists);
+        } else {
+            menu.getTextArea().setText("There is no budget list to show here. Press 'Add' to make a new one!");
         }
     }
 

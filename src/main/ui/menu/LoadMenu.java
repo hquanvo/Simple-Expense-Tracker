@@ -9,12 +9,31 @@ import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.Vector;
 
-// Represents a load menu that can load a different budget list
+// Represents a load menu that can load the tracker or a different budget list
 public class LoadMenu {
 
     // MODIFIES: menu
-    // EFFECTS: Create a load menu that user can choose to load a different budget list
+    // EFFECTS: Create a load menu that user can choose to load the state of the tracker or a different budget list
     public LoadMenu(MainMenu menu) {
+        Object[] options = {"Load tracker", "Load a different budget list", "Cancel"};
+        int choice = JOptionPane.showOptionDialog(menu, "Which of the following would you like to load?",
+                "Load", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[2]);
+        switch (choice) {
+            case (0):
+                menu.loadData();
+                menu.repaint();
+                break;
+            case (1):
+                loadBudgetListMenu(menu);
+                break;
+            case (2):
+                break;
+        }
+    }
+
+    // MODIFIES: menu
+    // EFFECTS: Create a load prompt that allow user to load a specific budget list
+    private void loadBudgetListMenu(MainMenu menu) {
         Tracker tracker = menu.getTracker();
         ArrayList<BudgetList> budgetLists = tracker.getBudgetLists();
         if (tracker.getTrackerSize() == 0) {
@@ -40,6 +59,4 @@ public class LoadMenu {
             }
         }
     }
-
-
 }

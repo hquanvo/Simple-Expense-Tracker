@@ -66,7 +66,7 @@ public class AddMenu {
         return entry;
     }
 
-    // EFFECTS: Create a date input dialog that user can input the date in
+    // EFFECTS: Create a date input dialog that user can input the date in and return user's input
     private String enterDatePrompt(MainMenu menu) {
         String date = JOptionPane.showInputDialog(menu,
                 "Please enter the date of the entry (MUST BE IN YYYY-MM-DD FORMAT, "
@@ -78,8 +78,9 @@ public class AddMenu {
         }
     }
 
-    // EFFECTS: Create an amount input dialog that the user can input the amount in, throws NegativeAmountException if
-    //          the input is negative, throws NumberFormatException if the input isn't a number
+    // EFFECTS: Create an amount input dialog that the user can input the amount in and return user's input, throws
+    //          NegativeAmountException if the input is negative, throws NumberFormatException if the input isn't a
+    //          number
     private double enterAmountPrompt(MainMenu menu) throws NegativeAmountException {
         double amt;
         String input = JOptionPane.showInputDialog(menu, "Please enter the amount spent on this entry:");
@@ -90,7 +91,8 @@ public class AddMenu {
         return amt;
     }
 
-    // EFFECTS: Create a category input dialog that the user can select the category the entry is in
+    // EFFECTS: Create a category input dialog that the user can select the category the entry is in and return user's
+    //          input
     private String enterCategoryPrompt(MainMenu menu) {
         Object[] choices = {"RENT", "FOOD", "SUPPLIES", "BILLS", "OTHERS"};
         return (String) JOptionPane.showInputDialog(menu,
@@ -99,7 +101,7 @@ public class AddMenu {
                 choices, choices[4]);
     }
 
-    // EFFECTS: Create a date input dialog that user can input the date in
+    // EFFECTS: Create a description input dialog that user can input the description in and return user's input
     private String enterDescriptionPrompt(MainMenu menu) {
         return JOptionPane.showInputDialog(menu,
                 "Please enter the description of the entry (if any):");
@@ -130,7 +132,7 @@ public class AddMenu {
     }
 
     // MODIFIES: menu
-    // EFFECTS: Creates the add menu prompt that adds a menu into the current budget list
+    // EFFECTS: Creates the add menu prompt that adds a budget list into the current menu
     private void addBudgetListMenu(MainMenu menu) {
         String name;
         Tracker tracker = menu.getTracker();
