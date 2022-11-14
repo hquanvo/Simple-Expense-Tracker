@@ -33,4 +33,4 @@ As mentioned above, managing finance can be difficult, especially when you're ne
 - You can generate the second required event related to adding Xs to a Y by clicking the "Add" button and select "Add a new budget list" in the menu that opens afterward. This will lead to a prompt that asks you to input the name of the new budget list, and then adding the budget list into the tracker once a non-empty string has been entered.
 - You can locate my visual component by starting up the program. The visual is in the loading splash screen.
 - You can save the state of my application by clicking the button labelled "Save" in the application. Additionally, clicking the "Quit" button or exiting the application will make a prompt that asks whether the user want to save or not.
-- You can reload the state of my application by clicking the button labelled "Load" and select "Load tracker" in the menu that opens afterward.
+- You can reload the state of my application by starting up the program. The loading process is automatically done on startup.

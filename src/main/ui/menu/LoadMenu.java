@@ -1,13 +1,10 @@
 package ui.menu;
 
 import model.BudgetList;
-import model.Entry;
 import model.Tracker;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Vector;
 
 // Represents a load menu that can load the tracker or a different budget list
 public class LoadMenu {
@@ -15,20 +12,7 @@ public class LoadMenu {
     // MODIFIES: menu
     // EFFECTS: Create a load menu that user can choose to load the state of the tracker or a different budget list
     public LoadMenu(MainMenu menu) {
-        Object[] options = {"Load tracker", "Load a different budget list", "Cancel"};
-        int choice = JOptionPane.showOptionDialog(menu, "Which of the following would you like to load?",
-                "Load", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[2]);
-        switch (choice) {
-            case (0):
-                menu.loadData();
-                menu.repaint();
-                break;
-            case (1):
-                loadBudgetListMenu(menu);
-                break;
-            case (2):
-                break;
-        }
+        loadBudgetListMenu(menu);
     }
 
     // MODIFIES: menu
@@ -55,7 +39,6 @@ public class LoadMenu {
                         menu.loadBudgetList(choice, budgetLists);
                     }
                 }
-
             }
         }
     }

@@ -40,7 +40,12 @@
         "name": "October 2022"
     },
     {
-        "entries": [],
+        "entries": [{
+            "date": "2022-11-12",
+            "amount": 40,
+            "description": "My comedically large shark plushie",
+            "category": "OTHERS"
+        }],
         "name": "November 2022"
     },
     {
