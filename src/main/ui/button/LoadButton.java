@@ -1,7 +1,5 @@
 package ui.button;
 
-import model.BudgetList;
-import model.Tracker;
 import ui.menu.LoadMenu;
 import ui.menu.MainMenu;
 
@@ -34,7 +32,7 @@ public class LoadButton extends Button {
     private class LoadButtonClickHandler implements ActionListener {
 
         // MODIFIES: this
-        // EFFECTS: Create a load prompt to load a different budget list into the menu
+        // EFFECTS: Create a load menu to load a different budget list into the menu
         @Override
         public void actionPerformed(ActionEvent e) {
             new LoadMenu(menu);

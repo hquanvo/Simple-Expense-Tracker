@@ -20,7 +20,7 @@ public class Entry implements Writable {
     // EFFECTS: Construct an Entry with amount spent, a date, a category and a description. If date is invalid, defaults
     //          to 2000-01-01. If amt <= 0, throw NegativeAmountException. NegativeAmountException takes priority
     public Entry(double amt, String date, Category category, String description)
-            throws NegativeAmountException, DateTimeParseException {
+            throws NegativeAmountException {
         if (amt <= 0) {
             throw new NegativeAmountException();
         }
