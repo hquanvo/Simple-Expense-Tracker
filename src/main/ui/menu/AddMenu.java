@@ -13,7 +13,7 @@ import java.util.Vector;
 public class AddMenu {
 
     // MODIFIES: menu
-    // EFFECTS: Creates prompt for an add selection
+    // EFFECTS: Creates a prompt that allow user to choose to add an entry or a budget list
     public AddMenu(MainMenu menu) {
         Object[] options = {"Add a new entry", "Add a new budget list", "Cancel"};
         int choice = JOptionPane.showOptionDialog(menu, "Which of the following would you like to add?",

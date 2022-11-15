@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class RemoveMenu {
 
     // MODIFIES: menu
-    // EFFECTS: Creates prompt for a remove selection
+    // EFFECTS: Creates a prompt that allow user to choose to remove an entry or a budget list
     public RemoveMenu(MainMenu menu) {
         if (menu.getTracker().getTrackerSize() == 0) {
             JOptionPane.showMessageDialog(menu,
