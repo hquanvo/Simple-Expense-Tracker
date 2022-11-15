@@ -6,7 +6,7 @@ import model.Tracker;
 import javax.swing.*;
 import java.util.ArrayList;
 
-// Represents a load menu that can load the tracker or a different budget list
+// Represents a load menu that can load a different budget list
 public class LoadMenu {
 
     // MODIFIES: menu

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Represent a load button, allowing user to load the tracker or a different budget list onto the menu
+// Represent a load button, allowing user to a different budget list onto the menu
 public class LoadButton extends Button {
 
     // EFFECTS: Creates a load button and add it onto the JComponent area

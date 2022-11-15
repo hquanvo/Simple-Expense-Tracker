@@ -119,7 +119,6 @@ public class MainMenu extends JFrame {
         initializeButtons();
         setVisible(true);
         revalidate();
-        repaint();
     }
 
     // EFFECT: Show the save options to the user, and return the user's selection
