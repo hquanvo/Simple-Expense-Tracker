@@ -275,20 +275,12 @@ public class MainMenu extends JFrame {
         return tracker;
     }
 
-    public Vector<Vector<String>> getData() {
-        return data;
-    }
-
     public JTable getTable() {
         return table;
     }
 
     public JTextArea getTextArea() {
         return textArea;
-    }
-
-    public List<Button> getButtons() {
-        return buttons;
     }
 
     public int getHeight() {
