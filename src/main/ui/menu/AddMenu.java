@@ -42,7 +42,7 @@ public class AddMenu {
         try {
             String date = enterDatePrompt(menu);
             double amt = enterAmountPrompt(menu);
-            String category = enterCategoryPrompt(menu);
+            String category = enterCategoryPrompt(menu).toLowerCase();
             String desc = enterDescriptionPrompt(menu);
 
             Entry entry = makeEntry(amt, category, date, desc);

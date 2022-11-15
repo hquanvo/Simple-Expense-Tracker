@@ -47,7 +47,8 @@ public class MainMenu extends JFrame {
         initializeFields();
         makeSplashScreen();
         initializeGraphics();
-
+        loadData();
+        repaint();
     }
 
     // MODIFIES: this
@@ -247,15 +248,15 @@ public class MainMenu extends JFrame {
     // EFFECTS: Show the message indicating that the process has been stopped when pressing the close button
     public void showAbortMessage() {
         JOptionPane.showMessageDialog(this,
-                "Process aborted.", "Error", JOptionPane.WARNING_MESSAGE);
+                "Process cancelled.", "Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     // REQUIRES: chosenName must be a name of an existing budget list in budgetLists
     // MODIFIES: this
     // EFFECTS: Load a budget list onto the menu, changing which entries are displayed in the table
-    public void loadBudgetList(String choosenName, ArrayList<BudgetList> budgetLists) {
+    public void loadBudgetList(String chosenName, ArrayList<BudgetList> budgetLists) {
         for (BudgetList budgetList : budgetLists) {
-            if (choosenName.equals(budgetList.getName())) {
+            if (chosenName.equals(budgetList.getName())) {
                 currentList = budgetList;
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
                 tableModel.getDataVector().removeAllElements();
@@ -321,8 +322,6 @@ public class MainMenu extends JFrame {
     private void loadTracker() {
         try {
             tracker = jsonReader.read();
-            JOptionPane.showMessageDialog(this,
-                    "All budget lists successfully loaded.");
         } catch (IOException e) {
             textArea.setText("Unable to load budget lists from " + FILE_LOCATION);
         } catch (NegativeAmountException e) {

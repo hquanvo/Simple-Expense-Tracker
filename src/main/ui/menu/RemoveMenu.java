@@ -67,17 +67,19 @@ public class RemoveMenu {
     private void updateEntryRemovalToTracker(MainMenu menu, int index) {
         int position = 0;
         Tracker tracker = menu.getTracker();
-        for (BudgetList budgetList : tracker.getBudgetLists()) {
-            int confirm = JOptionPane.showConfirmDialog(menu, "Are you sure you want to remove this entry?",
-                    "Confirm", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(menu, "Are you sure you want to remove this entry?",
+                "Confirm", JOptionPane.YES_NO_OPTION);
+        ArrayList<BudgetList> budgetLists = tracker.getBudgetLists();
+        for (BudgetList budgetList : budgetLists) {
+            String currentListName = budgetList.getName();
             if (confirm == 0) {
-                if (budgetList.getName().equals(menu.getCurrentList().getName())) {
-
+                if (currentListName.equals(menu.getCurrentList().getName())) {
                     budgetList.getBudgetList().remove(budgetList.getBudgetList().get(index));
-                    tracker.getBudgetLists().set(position, budgetList);
+                    budgetLists.set(position, budgetList);
 
                     DefaultTableModel model = (DefaultTableModel) menu.getTable().getModel();
                     model.removeRow(index);
+                    menu.loadBudgetList(currentListName, budgetLists);
                     menu.repaint();
                 } else {
                     position++;
