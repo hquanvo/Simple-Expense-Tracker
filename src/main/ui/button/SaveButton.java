@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Represents a save button
+// Represents a save button that the user can use to save the tracker
 public class SaveButton extends Button {
 
     // EFFECTS: Create a save button and add it onto the JComponent area

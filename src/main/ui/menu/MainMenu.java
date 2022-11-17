@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-// Represent the main menu, the first menu that the user will encounter
+// Represents the main menu, the first menu that the user will encounter
 // CITATION: Various methods in this class are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
 //           instructor team
 public class MainMenu extends JFrame {
@@ -152,7 +152,7 @@ public class MainMenu extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: customize the look of the table
+    // EFFECTS: Customize the look of the table
     private void customizeTable() {
         table.setBackground(Color.white);
         table.setPreferredSize(new Dimension(WIDTH, HEIGHT / 2));
@@ -309,7 +309,7 @@ public class MainMenu extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: Loads the tracker from tracker.json
+    // EFFECTS: Load the tracker from tracker.json
     private void loadTracker() {
         try {
             tracker = jsonReader.read();
