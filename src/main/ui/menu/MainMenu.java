@@ -29,7 +29,7 @@ public class MainMenu extends JFrame {
     private static final String FILE_LOCATION = "./data/tracker.json";
     protected static final int WIDTH = 1000;
     protected static final int HEIGHT = 800;
-    private static final ImageIcon ICON = new ImageIcon("./src/main/ui/image/welcome.jpg");
+    private static final ImageIcon ICON = new ImageIcon("./src/main/ui/image/welcome_flower.jpg");
 
     private Tracker tracker; // Tracker
     private JsonReader jsonReader;
