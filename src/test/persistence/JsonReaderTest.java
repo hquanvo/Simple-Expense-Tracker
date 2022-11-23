@@ -51,13 +51,13 @@ public class JsonReaderTest extends JsonTest {
             BudgetList expectedTestList1 = new BudgetList("testList1");
             BudgetList expectedTestList2 = new BudgetList("testList2");
 
-            Entry expectedEntry1 = new Entry(1, "" ,OTHERS, "");
-            Entry expectedEntry2 = new Entry(1300, "2022-12-01" , RENT, "Monthly rent");
-            Entry expectedEntry3 = new Entry(12.34, "2022-12-18", FOOD, "Grocery");
+            Entry expectedEntry1 = new Entry(1, "" ,"OTHERS", "");
+            Entry expectedEntry2 = new Entry(1300, "2022-12-01" , "RENT", "Monthly rent");
+            Entry expectedEntry3 = new Entry(12.34, "2022-12-18","FOOD", "Grocery");
 
-            expectedTestList1.add(expectedEntry1);
-            expectedTestList1.add(expectedEntry2);
-            expectedTestList1.add(expectedEntry3);
+            expectedTestList1.addEntry(expectedEntry1);
+            expectedTestList1.addEntry(expectedEntry2);
+            expectedTestList1.addEntry(expectedEntry3);
 
             assertEquals(2, tracker.getTrackerSize());
 

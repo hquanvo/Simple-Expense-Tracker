@@ -70,17 +70,17 @@ public class JsonReader {
             JSONObject nextEntry = (JSONObject) json;
             addEntry(budgetList, nextEntry);
         }
-        tracker.add(budgetList);
+        tracker.addBudgetList(budgetList);
     }
 
     // MODIFIES: tracker, budgetList
     // EFFECTS: parse entry from JSON object and adds them to the budget list
     private void addEntry(BudgetList budgetList, JSONObject jsonObject) throws NegativeAmountException {
         Double amount = jsonObject.getDouble("amount");
-        Category category = Category.valueOf(jsonObject.getString("category"));
+        String category = jsonObject.getString("category");
         String date = jsonObject.getString("date");
         String description = jsonObject.getString("description");
         Entry entry = new Entry(amount, date, category, description);
-        budgetList.add(entry);
+        budgetList.addEntry(entry);
     }
 }

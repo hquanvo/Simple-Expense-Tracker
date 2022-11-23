@@ -45,7 +45,7 @@ public class AddMenu {
             String category = enterCategoryPrompt(menu).toLowerCase();
             String desc = enterDescriptionPrompt(menu);
 
-            Entry entry = makeEntry(amt, category, date, desc);
+            Entry entry = new Entry(amt, date, category, desc);
             updateEntryAdditionToTracker(menu, entry);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(menu,
@@ -57,14 +57,6 @@ public class AddMenu {
         }
     }
 
-
-    // EFFECTS: Make an entry, then return it
-    private static Entry makeEntry(double amt, String category, String date, String description)
-            throws NegativeAmountException {
-        Entry entry = new Entry(amt, date, Category.OTHERS, description);
-        entry.setCategory(category);
-        return entry;
-    }
 
     // EFFECTS: Create a date input dialog that user can input the date in and return user's input
     private String enterDatePrompt(MainMenu menu) {
@@ -117,7 +109,7 @@ public class AddMenu {
 
             if (budgetList.getName().equals(menu.getCurrentList().getName())) {
 
-                budgetList.add(entry);
+                budgetList.addEntry(entry);
                 tracker.getBudgetLists().set(position, budgetList);
 
                 Vector<String> row = new Vector<>();
@@ -147,7 +139,7 @@ public class AddMenu {
                     "Name of the new budget list cannot be empty.", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
 
-            tracker.add(new BudgetList(name));
+            tracker.addBudgetList(new BudgetList(name));
             if (tracker.getBudgetLists().size() == 1) {
                 menu.loadBudgetList(name, tracker.getBudgetLists());
             }

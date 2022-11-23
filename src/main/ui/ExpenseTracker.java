@@ -154,7 +154,7 @@ public class ExpenseTracker extends Print {
         System.out.println("Please enter the name of the new budget sheet:");
         name = input.nextLine();
         BudgetList budgetList = new BudgetList(name);
-        tracker.add(budgetList);
+        tracker.addBudgetList(budgetList);
 
         //return to prev screen
         trackerMenu(tracker);
@@ -176,7 +176,7 @@ public class ExpenseTracker extends Print {
                 if (invalidBudgetListPosition(index)) {
                     System.out.println("Invalid position, please try again.");
                 } else {
-                    tracker.remove(tracker.getTrackerBudgetList(index));
+                    tracker.removeBudgetList(tracker.getTrackerBudgetList(index));
                     System.out.println("Removed list at position number " + index);
                 }
             } catch (InputMismatchException e) {
@@ -357,7 +357,7 @@ public class ExpenseTracker extends Print {
             System.out.println("(Optional) Please enter a description about the new entry:");
             String description = input.nextLine();
 
-            budgetList.getBudgetList().add(makeEntry(amt, category, date, description));
+            budgetList.getBudgetList().add(new Entry(amt, date, category, description));
         } catch (InputMismatchException e) {
             System.out.println("Cannot perform. Please try again.");
             input.nextLine();
@@ -372,13 +372,6 @@ public class ExpenseTracker extends Print {
 
     }
 
-    // EFFECTS: Make an entry, then return it
-    private static Entry makeEntry(double amt, String category, String date, String description)
-            throws NegativeAmountException {
-        Entry entry = new Entry(amt, date, Category.OTHERS, description);
-        entry.setCategory(category);
-        return entry;
-    }
 
 
     // MODIFIES: this, budgetList

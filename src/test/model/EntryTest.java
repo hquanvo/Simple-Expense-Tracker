@@ -15,15 +15,15 @@ public class EntryTest {
     private Entry entry2;
     @BeforeEach
     public void setup() throws NegativeAmountException {
-        entry1 = new Entry(12.0, "2000-01-01", FOOD,"");
-        entry2 = new Entry(24.0, "2000-01-01", SUPPLIES, "");
+        entry1 = new Entry(12.0, "2000-01-01", "Food","");
+        entry2 = new Entry(24.0, "2000-01-01", "Supplies", "");
 
     }
 
     @Test
     public void testNegativeAmountExceptionConstructor() {
         try {
-           new Entry(-2, "2000-01-01", FOOD, "");
+           new Entry(-2, "2000-01-01","Food", "");
             fail("NegativeAmountException was not thrown");
         } catch (NegativeAmountException e) {
             //pass
@@ -33,7 +33,7 @@ public class EntryTest {
     @Test
     public void testTwoExceptionConstructor() {
         try {
-            new Entry(-2, "", FOOD, "");
+            new Entry(-2, "", "Food", "");
             fail("No exception was thrown");
         } catch (DateTimeParseException e) {
             fail("Unexpected DateTimeParseException");
@@ -54,7 +54,7 @@ public class EntryTest {
 
     @Test
     public void testDateTimeParseException() throws NegativeAmountException {
-            Entry entry = new Entry(1, "", FOOD, "");
+            Entry entry = new Entry(1, "", "Food", "");
             assertEquals("2000-01-01", entry.getDate());
     }
 

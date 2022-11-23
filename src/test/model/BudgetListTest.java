@@ -20,15 +20,15 @@ public class BudgetListTest {
     void setup() throws NegativeAmountException {
         testList1 = new BudgetList("Eddie");
         testList2 = new BudgetList("September");
-        entry1 = new Entry(20, "2022-09-19", OTHERS, "A figurine");
-        entry2 = new Entry(400, "2022-09-12", BILLS, "Water, heat and wifi");
-        entry3 = new Entry(40, "2022-09-14", FOOD, "McDonald's");
-        entry4 = new Entry(500, "2022-09-16", SUPPLIES, "Drills and mallets");
-        entry5 = new Entry(1000, "2022-09-01", RENT, "");
-        testList2.add(entry1);
-        testList2.add(entry2);
-        testList2.add(entry3);
-        testList2.add(entry4);
+        entry1 = new Entry(20, "2022-09-19", "Others", "A figurine");
+        entry2 = new Entry(400, "2022-09-12", "Bills", "Water, heat and wifi");
+        entry3 = new Entry(40, "2022-09-14", "FOOD", "McDonald's");
+        entry4 = new Entry(500, "2022-09-16", "SUPPLIES", "Drills and mallets");
+        entry5 = new Entry(1000, "2022-09-01", "RENT", "");
+        testList2.addEntry(entry1);
+        testList2.addEntry(entry2);
+        testList2.addEntry(entry3);
+        testList2.addEntry(entry4);
     }
 
     @Test
@@ -51,15 +51,15 @@ public class BudgetListTest {
 
     @Test
     void testAddMultipleSameEntry() {
-        testList1.add(entry1);
-        testList1.add(entry1);
-        testList1.add(entry1);
+        testList1.addEntry(entry1);
+        testList1.addEntry(entry1);
+        testList1.addEntry(entry1);
         assertEquals(3, testList1.getBudgetListSize());
         testEntryPos(entry1, testList1, 1);
         testEntryPos(entry1, testList1, 2);
         testEntryPos(entry1, testList1, 3);
-        testList1.add(entry5);
-        testList1.add(entry1);
+        testList1.addEntry(entry5);
+        testList1.addEntry(entry1);
         assertEquals(5, testList1.getBudgetListSize());
         testEntryPos(entry5, testList1, 4);
         testEntryPos(entry1, testList1, 5);
@@ -67,9 +67,9 @@ public class BudgetListTest {
 
     @Test
     void testRemoveEntry() {
-        testList2.remove(entry1);
+        testList2.removeEntry(entry1);
         assertEquals(3, testList2.getBudgetListSize());
-        testList2.remove(entry3);
+        testList2.removeEntry(entry3);
         assertEquals(2, testList2.getBudgetListSize());
         testEntryPos(entry2, testList2, 1);
         testEntryPos(entry4, testList2, 2);
@@ -92,9 +92,9 @@ public class BudgetListTest {
     @Test
     void testSumCertainEntry() throws NegativeAmountException {
         assertEquals(500, testList2.sumCertainEntry(SUPPLIES));
-        testList2.add(entry4);
+        testList2.addEntry(entry4);
         assertEquals(1000, testList2.sumCertainEntry(SUPPLIES));
-        testList2.add(new Entry(12.34, "2022-09-12", SUPPLIES, ""));
+        testList2.addEntry(new Entry(12.34, "2022-09-12", "SUPPLIES", ""));
         assertEquals(1012.34, testList2.sumCertainEntry(SUPPLIES));
         assertEquals(0, testList2.sumCertainEntry(RENT));
     }

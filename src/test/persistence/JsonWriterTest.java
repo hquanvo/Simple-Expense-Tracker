@@ -51,13 +51,13 @@ public class JsonWriterTest extends JsonTest {
             Tracker tracker = new Tracker();
             BudgetList testList1 = new BudgetList("testList1"); // without entries
             BudgetList testList2 = new BudgetList("testList2"); // with entries
-            Entry testEntry1 = new Entry(1, "", OTHERS, ""); //entry with default date
-            Entry testEntry2 = new Entry(2000, "2003-12-15", RENT, "Monthly rent"); //actual entry
-            testList2.add(testEntry1);
-            testList2.add(testEntry2);
-            tracker.add(testList1);
-            tracker.add(testList2);
-            tracker.add(testList1);
+            Entry testEntry1 = new Entry(1, "", "OTHERS", ""); //entry with default date
+            Entry testEntry2 = new Entry(2000, "2003-12-15", "RENT", "Monthly rent"); //actual entry
+            testList2.addEntry(testEntry1);
+            testList2.addEntry(testEntry2);
+            tracker.addBudgetList(testList1);
+            tracker.addBudgetList(testList2);
+            tracker.addBudgetList(testList1);
 
             JsonWriter writer = new JsonWriter("./data/testGeneralTrackerWrite.json");
             writer.open();

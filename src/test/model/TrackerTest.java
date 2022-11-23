@@ -32,32 +32,32 @@ public class TrackerTest {
         testList1 = new BudgetList("January");
         testList2 = new BudgetList("February");
 
-        entry1 = new Entry(1000, "2022-01-01", RENT, "Rent");
-        entry2 = new Entry(40, "2022-01-03", FOOD, "Grocery store");
-        entry3 = new Entry(20, "2022-01-14", SUPPLIES, "Various tools");
-        entry4 = new Entry(100, "2022-01-01", BILLS, "Water, heat and internet");
-        entry5 = new Entry(1500, "2022-01-01", OTHERS, "PC funding");
+        entry1 = new Entry(1000, "2022-01-01", "RENT", "Rent");
+        entry2 = new Entry(40, "2022-01-03", "FOOD", "Grocery store");
+        entry3 = new Entry(20, "2022-01-14", "SUPPLIES", "Various tools");
+        entry4 = new Entry(100, "2022-01-01", "BILLS", "Water, heat and internet");
+        entry5 = new Entry(1500, "2022-01-01", "OTHERS", "PC funding");
 
-        entry6 = new Entry(1100, "2022-02-01", RENT, "Rent increase");
-        entry7 = new Entry(29.13, "2022-02-12", FOOD, "Grocery store");
-        entry8 = new Entry(56.86, "2022-02-22", FOOD, "Grocery store");
-        entry9 = new Entry(300, "2022-02-01", BILLS, "Water, heat and internet");
-        entry10 = new Entry(31.212, "2022-02-03", OTHERS, "Gaming controller");
+        entry6 = new Entry(1100, "2022-02-01", "RENT", "Rent increase");
+        entry7 = new Entry(29.13, "2022-02-12", "FOOD", "Grocery store");
+        entry8 = new Entry(56.86, "2022-02-22", "FOOD", "Grocery store");
+        entry9 = new Entry(300, "2022-02-01", "BILLS", "Water, heat and internet");
+        entry10 = new Entry(31.212, "2022-02-03", "OTHERS", "Gaming controller");
 
-        testList1.add(entry1);
-        testList1.add(entry2);
-        testList1.add(entry3);
-        testList1.add(entry4);
-        testList1.add(entry5);
+        testList1.addEntry(entry1);
+        testList1.addEntry(entry2);
+        testList1.addEntry(entry3);
+        testList1.addEntry(entry4);
+        testList1.addEntry(entry5);
 
-        testList2.add(entry6);
-        testList2.add(entry7);
-        testList2.add(entry8);
-        testList2.add(entry9);
-        testList2.add(entry10);
+        testList2.addEntry(entry6);
+        testList2.addEntry(entry7);
+        testList2.addEntry(entry8);
+        testList2.addEntry(entry9);
+        testList2.addEntry(entry10);
 
-        tracker.add(testList1);
-        tracker.add(testList2);
+        tracker.addBudgetList(testList1);
+        tracker.addBudgetList(testList2);
     }
 
     @Test
@@ -78,8 +78,8 @@ public class TrackerTest {
         assertEquals(1468.788, result.get(4));
         assertEquals(testList1.sumAll()- testList2.sumAll(), result.get(5));
 
-        testList1.remove(entry2);
-        testList2.remove(entry9);
+        testList1.removeEntry(entry2);
+        testList2.removeEntry(entry9);
         result = tracker.compareList(testList1,testList2);
         assertEquals(100, result.get(0));
         assertEquals(85.99, result.get(1));
@@ -97,17 +97,17 @@ public class TrackerTest {
 
         assertEquals(otherList, tracker.getBudgetLists());
         assertEquals(2, tracker.getTrackerSize());
-        tracker.remove(testList1);
+        tracker.removeBudgetList(testList1);
         assertEquals(1, tracker.getTrackerSize());
         assertEquals(testList2,tracker.getTrackerBudgetList(1));
-        tracker.remove(testList2);
-        tracker.remove(testList1);
+        tracker.removeBudgetList(testList2);
+        tracker.removeBudgetList(testList1);
         assertEquals(0, tracker.getTrackerSize());
-        tracker.add(testList1);
-        tracker.add(testList1);
-        tracker.add(testList2);
-        tracker.add(testList1);
-        tracker.add(testList1);
+        tracker.addBudgetList(testList1);
+        tracker.addBudgetList(testList1);
+        tracker.addBudgetList(testList2);
+        tracker.addBudgetList(testList1);
+        tracker.addBudgetList(testList1);
         assertEquals(5, tracker.getTrackerSize());
         assertEquals(testList2,tracker.getTrackerBudgetList(3));
     }
@@ -115,8 +115,8 @@ public class TrackerTest {
     @Test
     void testEmptyTracker() {
         assertFalse(tracker.isEmptyTracker());
-        tracker.remove(testList1);
-        tracker.remove(testList2);
+        tracker.removeBudgetList(testList1);
+        tracker.removeBudgetList(testList2);
         assertTrue(tracker.isEmptyTracker());
 
     }
