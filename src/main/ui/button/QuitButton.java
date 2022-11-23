@@ -33,14 +33,7 @@ public class QuitButton extends Button {
         // EFFECTS: Exit the app
         @Override
         public void actionPerformed(ActionEvent e) {
-            int a = menu.showSaveOption();
-            if (a == 0) {
-                menu.saveTracker();
-                System.exit(0);
-            } else if (a == 1) {
-                System.exit(0);
-            }
-            // do nothing if cancel was chosen
+            menu.exitPrompt();
         }
     }
 }

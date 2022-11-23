@@ -74,7 +74,7 @@ public class RemoveMenu {
             String currentListName = budgetList.getName();
             if (confirm == 0) {
                 if (currentListName.equals(menu.getCurrentList().getName())) {
-                    budgetList.getBudgetList().remove(budgetList.getBudgetList().get(index));
+                    budgetList.removeEntry(budgetList.getBudgetList().get(index));
                     budgetLists.set(position, budgetList);
 
                     DefaultTableModel model = (DefaultTableModel) menu.getTable().getModel();
@@ -108,23 +108,29 @@ public class RemoveMenu {
         int confirm = JOptionPane.showConfirmDialog(menu, "Are you sure you want to remove this budget list?",
                 "Confirm", JOptionPane.YES_NO_OPTION);
         if (confirm == 0) {
-            budgetLists.removeIf(budgetList -> choice.equals(budgetList.getName()));
-            if (menu.getCurrentList().getName().equals(choice)) {
-                loadDifferentListPostRemoval(menu, budgetLists);
-
-            }
+            updateBudgetListRemoval(menu, tracker, budgetLists, choice);
         }
     }
 
     // MODIFIES: menu
-    // EFFECTS: Load in the next budget list if the current displaying list was removed by the user
-    private void loadDifferentListPostRemoval(MainMenu menu, ArrayList<BudgetList> budgetLists) {
-        if (budgetLists.size() >= 1) {
-            menu.loadBudgetList(budgetLists.get(0).getName(), budgetLists);
-        } else {
-            menu.getTextArea().setText("There is no budget list to show here. Press 'Add' to make a new one!");
+    // EFFECTS: Update the tracker and the menu to display the updated table with a different budget list if the current
+    //          displaying list was removed
+    private void updateBudgetListRemoval(MainMenu menu, Tracker tracker,
+                                         ArrayList<BudgetList> budgetLists, String choice) {
+        for (BudgetList budgetList : budgetLists) {
+            if (budgetList.getName().equals(choice)) {
+                tracker.removeBudgetList(budgetList);
+                break;
+            }
+        }
+        if (menu.getCurrentList().getName().equals(choice)) {
+            if (budgetLists.size() >= 1) {
+                menu.loadBudgetList(budgetLists.get(0).getName(), budgetLists);
+            } else {
+                menu.getTextArea().setText("There is no budget list to show here. Press 'Add' to make a new one!");
+            }
+
         }
     }
-
 
 }

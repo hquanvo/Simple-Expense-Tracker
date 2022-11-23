@@ -20,17 +20,17 @@ public class BudgetList implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: add entry into list
+    // EFFECTS: add entry into budget list
     public void addEntry(Entry entry) {
         budgetList.add(entry);
-        EventLog.getInstance().logEvent(new Event("Added an entry to the current budget list."));
+        EventLog.getInstance().logEvent(new Event("Added an entry to budget list " + name));
     }
 
     // MODIFIES: this
-    // EFFECTS: remove entry from list
+    // EFFECTS: remove entry from budget list
     public void removeEntry(Entry entry) {
         budgetList.remove(entry);
-        EventLog.getInstance().logEvent(new Event("Removed an entry from current budget list."));
+        EventLog.getInstance().logEvent(new Event("Removed an entry from budget list " + name));
     }
 
     // EFFECTS: Return the sum of all money spent in the budget list
@@ -61,7 +61,7 @@ public class BudgetList implements Writable {
             summaryList.add(sumCertainEntry(ct));
         }
         summaryList.add(sumAll());
-        EventLog.getInstance().logEvent(new Event("Generated a summary of the current budget list."));
+        EventLog.getInstance().logEvent(new Event("Generated a summary of the budget list " + name));
         return summaryList;
     }
 

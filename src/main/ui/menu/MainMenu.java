@@ -3,6 +3,8 @@ package ui.menu;
 import exceptions.NegativeAmountException;
 import model.BudgetList;
 import model.Entry;
+import model.Event;
+import model.EventLog;
 import model.Tracker;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -102,14 +104,7 @@ public class MainMenu extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                int a = showSaveOption();
-                if (a == 0) {
-                    saveTracker();
-                    System.exit(0);
-                } else if (a == 1) {
-                    System.exit(0);
-                }
-                // do nothing if cancel was chosen
+                exitPrompt();
             }
         });
         setResizable(false);
@@ -225,6 +220,27 @@ public class MainMenu extends JFrame {
             }
             displayStandardTextAreaMessage(currentList);
         }
+    }
+
+    // EFFECTS: Display the prompt when the user exit the app
+    public void exitPrompt() {
+        int a = showSaveOption();
+        EventLog el = EventLog.getInstance();
+        if (a == 0) {
+            saveTracker();
+            // print out the log
+            for (Event event : el) {
+                System.out.println(event.toString());
+            }
+            System.exit(0);
+        } else if (a == 1) {
+            // print out the log
+            for (Event event : el) {
+                System.out.println(event.toString());
+            }
+            System.exit(0);
+        }
+        // do nothing if cancel was chosen
     }
 
     // EFFECTS: Display the standard text message when a budget list is currently loaded in

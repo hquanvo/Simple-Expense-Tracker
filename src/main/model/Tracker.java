@@ -19,14 +19,14 @@ public class Tracker {
     // EFFECTS: Add a budget list into the tracker
     public void addBudgetList(BudgetList budgetList) {
         tracker.add(budgetList);
-        EventLog.getInstance().logEvent(new Event("Added a budget list to tracker."));
+        EventLog.getInstance().logEvent(new Event("Added budget list " + budgetList.getName() + " to tracker"));
     }
 
     // MODIFIES: this
     // EFFECTS: Remove a budget list from tracker
     public void removeBudgetList(BudgetList budgetList) {
         tracker.remove(budgetList);
-        EventLog.getInstance().logEvent(new Event("Removed a budget list from tracker."));
+        EventLog.getInstance().logEvent(new Event("Removed budget list " + budgetList.getName() + " from tracker"));
     }
 
     // REQUIRES: tracker size >= 2
@@ -40,7 +40,7 @@ public class Tracker {
         for (i = 0; i < 6; i++) {
             report.add(summary2.get(i) - summary1.get(i));
         }
-        EventLog.getInstance().logEvent(new Event("Generated a comparison of the two budget lists."));
+        EventLog.getInstance().logEvent(new Event("Generated a comparison of two budget lists"));
         return report;
     }
 

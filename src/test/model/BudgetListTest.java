@@ -4,6 +4,9 @@ import exceptions.NegativeAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static model.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,20 +34,21 @@ public class BudgetListTest {
         testList2.addEntry(entry4);
     }
 
+
     @Test
     void testAddEntry() {
         assertEquals(0, testList1.getBudgetListSize());
-        testList1.getBudgetList().add(entry1);
+        testList1.addEntry(entry1);
         assertEquals(1, testList1.getBudgetListSize());
         testContainsEntry(testList1, entry1);
-        testList1.getBudgetList().add(entry2);
-        testList1.getBudgetList().add(entry3);
-        testList1.getBudgetList().add(entry4);
+        testList1.addEntry(entry2);
+        testList1.addEntry(entry3);
+        testList1.addEntry(entry4);
         assertEquals(4, testList1.getBudgetListSize());
         testContainsEntry(testList1, entry2);
         testContainsEntry(testList1, entry3);
         testContainsEntry(testList1, entry4);
-        testList1.getBudgetList().add(entry5);
+        testList1.addEntry(entry5);
         testContainsEntry(testList1, entry5);
     }
 
@@ -116,9 +120,76 @@ public class BudgetListTest {
         assertFalse(testList2.isEmptyBudgetList());
     }
 
+    @Test
+    void testEventLogAdd() {
+        List<String> l = new ArrayList<>();
+        EventLog el = EventLog.getInstance();
+        el.clear();
+        testLog();
+        for (Event next : el) {
+            String desc = next.getDescription();
+            if (desc.equals("Added an entry to budget list September")) {
+                l.add(desc);
+            }
+        }
+        assertFalse(l.contains("Removed an entry from budget list September"));
+        assertTrue(l.contains("Added an entry to budget list September"));
+        assertFalse(l.contains("Generated a summary of the budget list September"));
+        assertEquals(2, l.size());
+    }
+
+
+
+    @Test
+    void testEventLogRemove() {
+        List<String> l = new ArrayList<>();
+
+        EventLog el = EventLog.getInstance();
+        el.clear();
+        testLog();
+        for (Event next : el) {
+            String desc = next.getDescription();
+            if (desc.equals("Removed an entry from budget list September")) {
+                l.add(desc);
+            }
+        }
+        assertTrue(l.contains("Removed an entry from budget list September"));
+        assertFalse(l.contains("Added an entry to budget list September"));
+        assertFalse(l.contains("Generated a summary of the budget list September"));
+        assertEquals(2, l.size());
+    }
+
+    @Test
+    void testEventLogSummarize() {
+        List<String> l = new ArrayList<>();
+
+        EventLog el = EventLog.getInstance();
+        el.clear();
+        testLog();
+        for (Event next : el) {
+            String desc = next.getDescription();
+            if (desc.equals("Generated a summary of the budget list September")) {
+                l.add(desc);
+            }
+        }
+        assertFalse(l.contains("Removed an entry from budget list September"));
+        assertFalse(l.contains("Added an entry to budget list September"));
+        assertTrue(l.contains("Generated a summary of the budget list September"));
+        assertEquals(1, l.size());
+    }
+
+
     //0 is RENT, 1 is FOOD, 2 is SUPPLIES, 3 is BILLS, 4 is OTHERS, 5 is TOTAL
     private void testExpectedAmountInCategory(int expectedAmount, int categoryIndex) {
         assertEquals(expectedAmount, testList2.summarize().get(categoryIndex));
+    }
+
+    private void testLog() {
+        testList2.removeEntry(entry1);
+        testList2.removeEntry(entry2);
+        testList2.addEntry(entry1);
+        testList2.addEntry(entry2);
+        testList2.summarize();
     }
 
     private void testContainsEntry(BudgetList budgetList,Entry entry) {

@@ -34,3 +34,49 @@ As mentioned above, managing finance can be difficult, especially when you're ne
 - You can locate my visual component by starting up the program. The visual is in the loading splash screen.
 - You can save the state of my application by clicking the button labelled "Save" in the application. Additionally, clicking the "Quit" button or exiting the application will make a prompt that asks whether the user want to save or not.
 - You can reload the state of my application by starting up the program. The loading process is automatically done on startup.
+
+# Phase 4: Task 2
+Wed Nov 23 00:36:45 PST 2022
+Added an entry to budget list September 2022
+
+Wed Nov 23 00:36:45 PST 2022
+Added an entry to budget list September 2022
+
+Wed Nov 23 00:36:45 PST 2022
+Added an entry to budget list September 2022
+
+Wed Nov 23 00:36:45 PST 2022
+Added budget list September 2022 to tracker
+
+Wed Nov 23 00:36:45 PST 2022
+Added an entry to budget list October 2022
+
+Wed Nov 23 00:36:45 PST 2022
+Added an entry to budget list October 2022
+
+Wed Nov 23 00:36:45 PST 2022
+Added budget list October 2022 to tracker
+
+Wed Nov 23 00:36:45 PST 2022
+Added an entry to budget list November 2022
+
+Wed Nov 23 00:36:45 PST 2022
+Added budget list November 2022 to tracker
+
+Wed Nov 23 00:36:45 PST 2022
+Added budget list December 2022 to tracker
+
+Wed Nov 23 00:36:50 PST 2022
+Added an entry to budget list September 2022
+
+Wed Nov 23 00:36:53 PST 2022
+Added budget list 21 to tracker
+
+Wed Nov 23 00:36:54 PST 2022
+Generated a summary of the budget list September 2022
+
+Wed Nov 23 00:36:58 PST 2022
+Removed an entry from budget list September 2022
+
+Wed Nov 23 00:37:02 PST 2022
+Removed budget list 21 from tracker

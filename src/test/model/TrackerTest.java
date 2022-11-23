@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static model.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,5 +121,28 @@ public class TrackerTest {
         assertTrue(tracker.isEmptyTracker());
 
     }
+
+    @Test
+    void testEventLogTracker() {
+        List<Event> l = new ArrayList<>();
+
+        EventLog el = EventLog.getInstance();
+        el.clear();
+        tracker.addBudgetList(testList1);
+        tracker.addBudgetList(testList2);
+        tracker.removeBudgetList(testList1);
+        tracker.removeBudgetList(testList2);
+        tracker.compareList(testList1,testList2);
+        for (Event next : el) {
+            l.add(next);
+            }
+
+        assertEquals("Added budget list January to tracker", l.get(1).getDescription());
+        assertEquals("Added budget list February to tracker", l.get(2).getDescription());
+        assertEquals("Removed budget list January from tracker", l.get(3).getDescription());
+        assertEquals("Removed budget list February from tracker", l.get(4).getDescription());
+        assertEquals("Generated a comparison of two budget lists", l.get(7).getDescription());
+    }
+
 
 }
