@@ -138,10 +138,15 @@ public class TrackerTest {
             }
 
         assertEquals("Added budget list January to tracker", l.get(1).getDescription());
+        assertEquals(l.get(1).hashCode(), new Event("Added budget list January to tracker").hashCode());
         assertEquals("Added budget list February to tracker", l.get(2).getDescription());
+        assertEquals(l.get(2).hashCode(), new Event("Added budget list February to tracker").hashCode());
         assertEquals("Removed budget list January from tracker", l.get(3).getDescription());
+        assertEquals(l.get(3).hashCode(), new Event("Removed budget list January from tracker").hashCode());
         assertEquals("Removed budget list February from tracker", l.get(4).getDescription());
+        assertEquals(l.get(4).hashCode(), new Event("Removed budget list February from tracker").hashCode());
         assertEquals("Generated a comparison of two budget lists", l.get(7).getDescription());
+        assertEquals(l.get(7).hashCode(), new Event("Generated a comparison of two budget lists").hashCode());
     }
 
 
