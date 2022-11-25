@@ -80,3 +80,9 @@ Removed an entry from budget list September 2022
 
 Wed Nov 23 00:37:02 PST 2022
 Removed budget list 21 from tracker
+
+# Phase 4: Task 3
+**What I would change in the design if I had more time** 
+
+- I would refactor my main menu because it has low cohesion. It is doing more than just displaying the main menu on startup but also handling all the update that happens to the tracker. I intend to make a new class that handle all the updating for the tracker, and move some methods in my main menu class to this new class.
+- I would refactor certain methods that have repetition or methods that have multiple effects. Certain methods are harder to understand because the method length is long and condensed with many functionality. I would split these methods into smaller helpers, and document each helper accurately so other people looking at my code can understand what is going on when these methods are run.
