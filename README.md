@@ -10,6 +10,5 @@ And that's where this program comes in. Intended for student use, this program h
 - Convenient way to enter the amount of money spent, the category it belongs to and the date of the transaction.
 - Creates a list that shows your spending of the month, which includes how much money, on what categories, date, and perhaps a brief description if you like.
 - Calculates the total amount spent on each category, and the overall sum of money spent for that month.
-- Allows you to compare your budget spending with the previous month(s) with a brief report.
 
 As mentioned above, managing finance can be difficult, especially when you're new to adulthood and thus may not realize what your spending habits are. This application is a convenient, simple and straightforward tool to assist you on this matter.
