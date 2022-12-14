@@ -67,8 +67,6 @@ public class Tracker {
         return tracker.get(i - 1);
     }
 
-    // CITATION: toJson and budgetListToJson are based on the code found in JsonSerealizationDemo project provided by
-    //          CPSC 210 instructors at UBC
 
     // EFFECTS: Write information about a tracker as a JSONObject
     public JSONObject toJson() {

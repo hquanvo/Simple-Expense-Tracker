@@ -12,7 +12,6 @@ import java.io.IOException;
 import static model.Category.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-// CITATION: Modeled after JsonReaderTest class in JsonSerializationDemo project provided by CPSC 210 instructors at UBC
 public class JsonReaderTest extends JsonTest {
 
     @Test

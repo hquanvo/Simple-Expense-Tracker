@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Vector;
 
 // Represents the main menu, the first menu that the user will encounter
-// CITATION: Various methods in this class are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
-//           instructor team
 public class MainMenu extends JFrame {
     private static final String FILE_LOCATION = "./data/tracker.json";
     protected static final int WIDTH = 1000;

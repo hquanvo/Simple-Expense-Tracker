@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
-// CITATION: Modeled after JsonReader class in JsonSerializationDemo project provided by CPSC 210 instructors at UBC
 // A reader that could read JSON files and load the saved state of the tracker
 public class JsonReader {
     private String source;

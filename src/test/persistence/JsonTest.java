@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// CITATION: Modeled after JsonTest class in JsonSerializationDemo project provided by CPSC 210 instructors at UBC
 public class JsonTest {
     protected void checkBudgetList(BudgetList budgetList, String name, ArrayList<Entry> entries) {
         assertEquals(name, budgetList.getName());

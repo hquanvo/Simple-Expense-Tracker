@@ -5,8 +5,6 @@ import ui.menu.MainMenu;
 import javax.swing.*;
 import java.awt.*;
 
-// CITATION: Button and its subclasses' codes are inspired from SimpleDrawingPlayer project provided by UBC CPSC 210
-//           instructor team
 public abstract class Button {
 
     protected JButton button;

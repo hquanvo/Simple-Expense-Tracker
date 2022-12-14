@@ -4,7 +4,6 @@ import model.Tracker;
 import org.json.JSONObject;
 import java.io.*;
 
-// CITATION: Modeled after JsonWriter class in JsonSerializationDemo project provided by CPSC 210 instructors at UBC
 // A writer that could write a JSON file saving the state of the app into a destination file
 public class JsonWriter {
     private static final int INDENT = 4;

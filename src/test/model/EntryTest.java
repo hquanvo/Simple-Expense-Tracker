@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EntryTest {
     private Entry entry1;
     private Entry entry2;
+
     @BeforeEach
     public void setup() throws NegativeAmountException {
         entry1 = new Entry(12.0, "2000-01-01", "Food","");
